@@ -55,10 +55,10 @@ const Footer: FC = () => {
       {/* <div className='h-20 hidden 2xl:block bg-gradient-to-b from-[#f0f3fa] to-[#ffffff]'></div>   */}
 
       <div className='w-full relative z-20'>
-        <div className='mx-auto w-full px-2.5 md:px-0 max-w-[1216px] '>
+        <div className='container '>
           <footer className=' w-full py-0 px-4 xl:px-0'>
             <div>
-              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center sm:text-left'>
+              <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center sm:text-left'>
                 <div className='flex flex-col items-center sm:items-start'>
                   {/* <Logo className="text-xl font-semibold mb-4" /> */}
 

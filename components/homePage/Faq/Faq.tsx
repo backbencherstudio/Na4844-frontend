@@ -24,14 +24,16 @@ const Faq = () => {
   }, []);
 
   return (
-    <div className='w-full relative overflow-hidden lg:h-[1400px]  lg:-mb-[180px]'>
+    <div className='w-full relative overflow-hidden '>
       {/* Background Image */}
       <Image
-        src='/homepage/faqbg.svg'
+        src='/images/back/faq.svg'
         alt='faq background'
-        fill
+        height={1000}
+        width={1000}
+        objectPosition='cover'
         priority
-        className='absolute top-0 left-0 right-0 bottom-0 w-screen h-full z-0'
+        className='absolute  left-0 right-0 bottom-0  h-full z-0 w-full'
         sizes='100vw'
         style={{
           objectFit: isMobile ? "cover" : "contain",

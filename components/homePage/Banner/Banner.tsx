@@ -63,7 +63,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className='w-full lg:h-[1440px] z-10 bg-linear-to-b from-[#4069E4] to-[rgba(255,255,255,0)] relative overflow-hidden'>
+    <div className='w-full  z-10 bg-linear-to-b from-[#4069E4] to-[rgba(255,255,255,0)] relative overflow-hidden'>
       {/* Top Banner Image */}
       <div className='absolute top-0 left-0 right-0 w-full z-10 pointer-events-none'>
         <Image
@@ -71,28 +71,27 @@ const Banner = () => {
           alt='banner top decoration'
           width={1920}
           height={200}
-          className='w-full h-auto object-contain'
+          className='w-full h-auto object-contain absolute top-0'
+          priority
+        />
+        <Image
+          src='/images/back/Wallpaper Blur.png'
+          alt='banner top decoration'
+          width={1920}
+          height={200}
+          className='w-full h-[800px] object-contain absolute mt-90 '
           priority
         />
       </div>
 
       {/* Bottom Banner Image Holla */}
-      <div className='absolute bottom-24 md:bottom-[216px] left-[400px] md:left-0 right-0 w-full z-10 pointer-events-none flex justify-center'>
-        <Image
-          src='/banner/bannerbottom.svg'
-          alt='banner bottom decoration'
-          width={1920}
-          height={200}
-          className='w-auto md:w-full max-w-[1200px] md:h-auto  object-contain'
-          style={{ objectPosition: "bottom" }}
-        />
-      </div>
 
       <div className='w-full relative z-20 mt-[220px] md:mt-[180px]'>
-        <div className='mx-auto w-full px-2.5 md:px-0 max-w-[1216px]'>
-          <div className='w-full '>
-            <div className='flex flex-col items-center justify-center text-center gap-11 sm:gap-6 md:gap-7 lg:gap[25px] w-full'>
+        <div className='mx-auto w-full px-2.5 md:px-0 max-w-[1216px] flex justify-center '>
+          <div className='w-full container '>
+            <div className='flex flex-col items-center   justify-center mx-auto text-center gap-11 sm:gap-6 md:gap-7 lg:gap[25px] w-full'>
               <PageHeaderButton
+                className='mt-10 md:mt-0'
                 text='Loved by 4.5 out of 5 Creators'
                 icons={[
                   <IoMdStar key='1' />,
@@ -103,16 +102,15 @@ const Banner = () => {
                 ]}
               />
 
-              <div className='flex flex-col gap-8 z-40 items-center'>
-                <h1 className='hero-title font-semibold text-white md:max-w-5xl text-[44px] sm:text-4xl md:text-5xl lg:text-7xl leading-[120%] tracking-[-4%]'>
+              <div className='flex flex-col gap-6 z-40 items-center'>
+                <h1 className='hero-title font-semibold text-white md:max-w-5xl text-[44px] sm:text-4xl md:text-5xl lg:text-7xl leading-[120%] tracking-[-2.92px]'>
                   Post Better Videos—Faster. Skip the Editing.
                 </h1>
 
                 <p className='hero-subtitle text-white leading-[150%] max-w-[20rem] sm:max-w-lg md:max-w-3xl lg:max-w-5xl text-sm sm:text-base md:text-lg lg:text-xl'>
-                  We&apos;ll edit anything, fast-optimized for any platform.
-                  Just drop your footage, and we&apos;ll turn it into content
-                  that gets views and drives growth—with zero effort on your
-                  part.
+                  We’ll edit anything, fast-optimized for any platform. Just
+                  drop your footage, and we’ll turn it into content that gets
+                  views and drives growth-with zero effort on your part.
                 </p>
 
                 <div className='w-full sm:w-fit shadow-2xl'>
@@ -121,7 +119,7 @@ const Banner = () => {
                   </SiteButton>
                 </div>
 
-                <p className='hero-bottom-text text-white max-w-60 sm:max-w-sm md:max-w-md text-xs sm:text-sm md:text-base leading-[150%]'>
+                <p className='hero-bottom-text text-white max-w-60 sm:max-w-sm md:max-w-md text-xs sm:text-sm md:text-base leading-[150%] '>
                   14-Day free access to professional <br /> video editing team
                 </p>
               </div>
@@ -129,48 +127,41 @@ const Banner = () => {
           </div>
         </div>
       </div>
+      <section className='relative w-full'>
+        <div className='relative z-10 w-full'>
+          <div className='container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
+            {/* TEXT CONTENT */}
+            <div className='flex flex-col gap-4 text-center lg:text-left w-full'>
+              <h1 className='font-semibold text-black -tracking-[0.04em] text-3xl sm:text-4xl md:text-5xl lg:text-[54px]'>
+                Effortless Video
+              </h1>
 
-      <div className=''>
-        <div className=' z-10 relative  w-full'>
-          <div className='w-full'>
-            <div className='container flex flex-col-reverse lg:flex-row items-center justify-center gap-10 lg:gap-20'>
-              <div className='flex flex-col gap-4 text-center lg:text-left'>
-                <h1 className='font-semibold text-black -tracking-[0.04em] text-3xl sm:text-4xl md:text-5xl lg:text-[54px] whitespace-nowrap'>
-                  Effortless Video
-                </h1>
+              <h4 className='font-semibold text-black -tracking-[0.04em] max-w-md mx-auto lg:mx-0 text-lg sm:text-xl md:text-[24px] lg:text-[28px]'>
+                The perfect tool for your creative mind
+              </h4>
 
-                <h4 className='font-semibold text-black -tracking-[0.04em] max-w-80 mx-auto lg:mx-0 text-lg sm:text-xl md:text-[24px] lg:text-[28px]'>
-                  The perfect tool for your creative mind
-                </h4>
+              <p className='text-[#000000B2] leading-[133%] max-w-md sm:max-w-lg text-sm sm:text-base md:text-lg mx-auto lg:mx-0 font-normal'>
+                Regular video posts equals more reach. With FlowEdit, you get a
+                steady stream of high-quality, platform-optimized videos that
+                keep your audience engaged and your brand top-of-mind. Our team
+                handles the edits, thumbnails, and even posting—so your channels
+                never go quiet and you stay focused on creating.
+              </p>
+            </div>
 
-                <p className='text-black leading-[150%] max-w-md sm:max-w-108 text-sm sm:text-base md:text-lg mx-auto lg:mx-0'>
-                  Regular video posts equals more reach. With FlowEdit, you get
-                  a steady stream of high-quality, platform-optimized videos
-                  that keep your audience engaged and your brand top-of-mind.
-                </p>
-              </div>
-
-              <div className='relative w-full h-[440px] md:h-[520px] block lg:hidden overflow-hidden floating-laptop'>
-                <Image
-                  src='/images/home-page/laptop.png'
-                  alt='laptop image'
-                  fill
-                  className='object-cover object-center'
-                />
-              </div>
-
-              <div className='hidden lg:block relative w-full max-w-[711px] h-[650px] floating-laptop'>
-                <Image
-                  src='/images/home-page/laptop.png'
-                  alt='laptop image'
-                  fill
-                  className='object-contain lg:object-cover'
-                />
-              </div>
+            {/* IMAGE */}
+            <div className='relative w-full h-[300px] sm:h-[400px] md:h-[480px] lg:h-[500px] flex justify-center'>
+              <Image
+                src='/images/home-page/laptop.png'
+                alt='laptop image'
+                fill
+                priority
+                className='object-contain lg:object-cover'
+              />
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

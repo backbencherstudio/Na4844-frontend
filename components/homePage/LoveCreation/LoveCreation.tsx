@@ -17,6 +17,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+interface Testimonial {
+  quote: string;
+  text: string;
+  name: string;
+  info: string;
+}
 const testimonials = [
   {
     quote: "“The best in town”",
@@ -38,7 +44,7 @@ const testimonials = [
   },
 ];
 
-const TestimonialCard = ({ item }: any) => (
+const TestimonialCard = ({ item }: { item: Testimonial }) => (
   <div className='w-full rounded-[20px] px-6 py-8 border border-[rgba(255,255,255,0.14)] backdrop-blur-[25px] shadow-[0_8px_20px_rgba(0,0,0,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.68),rgba(255,255,255,0.5))] flex flex-col gap-5 items-center lg:items-start text-center lg:text-left'>
     <BiSolidQuoteLeft className='text-6xl opacity-10' />
 
@@ -71,7 +77,7 @@ const LovedByCreatorsSection = () => {
   }, []);
 
   return (
-    <div className='w-full relative overflow-hidden lg:h-[1200px] -mt-20 md:-mt-[254px]'>
+    <div className='w-full relative overflow-hidden lg:h-[1200px] -mt-20 lg:-mt-[354px]'>
       {/* Background Image */}
       <Image
         src='/homepage/creatorbg.svg'
@@ -91,8 +97,8 @@ const LovedByCreatorsSection = () => {
       />
 
       <div
-        className={`fluid-container flex flex-col items-center justify-center gap-10 relative z-10 h-full lg:justify-end lg:pb-40 ${
-          pathname === "/portfolio" ? "pt-12 lg:pt-0" : "pt-10 lg:pt-0"
+        className={`fluid-container flex flex-col items-center justify-center gap-10 relative z-10 h-full lg:justify-end lg:pb-[108px] ${
+          pathname === "/portfolio" ? "mt-0 pt-8 lg:-mt-15" : "pt-10 lg:pt-0"
         }`}>
         <PageHeaderButton text='Testimonials' />
 
@@ -117,7 +123,7 @@ const LovedByCreatorsSection = () => {
             </Swiper>
           </div>
 
-          <div className='hidden lg:flex justify-center gap-6 w-full'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-6 w-full'>
             {testimonials.map((item, index) => (
               <TestimonialCard key={index} item={item} />
             ))}
