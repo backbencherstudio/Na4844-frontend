@@ -3,6 +3,7 @@
 
 import PageHeaderButton from "@/components/shared/PageHeaderButton";
 import ToggleSwitch, { PlanType } from "@/components/shared/ToggleSwitch";
+import PriceCarosel from "./PriceCarosel/PriceCarosel";
 
 const PriceBanner = ({
   value,
@@ -11,9 +12,44 @@ const PriceBanner = ({
   value: PlanType;
   onToggleChange: (value: PlanType) => void;
 }) => {
+  const discountApplied = value === "monthly";
+
   return (
-    <div className='relative overflow-hidden mt-12 lg:mt-0 mb-[43px] lg:mb-[77px]'>
-      <div className='mx-auto max-w-[1216px] flex flex-col gap-5 items-center mt-[100px] lg:mt-[185px]'>
+    <div
+      className='relative overflow-hidden inset-0
+      bg-gradient-to-b from-[#6386f1] to-[#feffff] z-0'>
+      {/* Mobile BG */}
+      <div
+        className='absolute top-0 block lg:hidden h-screen left-0 right-0 bottom-0 z-50'
+        style={{
+          backgroundImage: "url('/images/smallBg.png')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
+      {/* Desktop BG */}
+      <div
+        className='absolute top-0 hidden lg:block left-0 right-0 bottom-0 w-full z-0'
+        style={{
+          backgroundImage: "url('/images/back/border.svg')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
+      <div
+        className='absolute top-0 hidden lg:block left-0 right-0 bottom-0 w-full mt-90 z-0'
+        style={{
+          backgroundImage: "url('/images/back/dhew.png')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
+      {/* CONTENT */}
+      <div className='mx-auto flex flex-col gap-5 items-center mt-[100px] lg:mt-[185px] relative z-20'>
         <PageHeaderButton text='Pricing' />
 
         <h1 className='font-semibold text-[44px] lg:text-[73px] -tracking-[0.04em] text-white text-center'>
@@ -26,8 +62,12 @@ const PriceBanner = ({
           cheaper than what’s on the market
         </p>
 
-        <ToggleSwitch value={value} onChange={onToggleChange} />
+        <div className='pb-[77px]'>
+          <ToggleSwitch value={value} onChange={onToggleChange} />
+        </div>
       </div>
+
+      <PriceCarosel discountApplied={discountApplied} />
     </div>
   );
 };

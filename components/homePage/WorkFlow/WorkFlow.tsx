@@ -2,6 +2,7 @@
 
 "use client";
 
+import SiteButton from "@/components/shared/SiteButton";
 import Image from "next/image";
 
 const projects = [
@@ -41,44 +42,58 @@ export default function WorkFlowSection() {
         alt='sdf'
         height={5000}
         width={5000}
-        className='h-full w-full absolute'></Image>
+        className='h-full w-full absolute '></Image>
       <Image
         src='/images/back/dhew.png'
         alt='sdf'
         height={500}
         width={500}
-        className='h-full w-full absolute'></Image>
+        className='h-full w-full absolute '></Image>
+      <p className='text-center text-3xl md:text-4xl lg:text-[54px] font-semibold  pb-[42px]'>
+        A Simple Powerful Workflow{" "}
+      </p>
+
       {/* Top cards */}
-      <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-20'>
+      <div className='container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-20'>
         {projects.map(({ id, title, description, imageSrc }) => (
           <div
             key={id}
-            className='bg-white bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg p-4 flex flex-col'>
-            <div className='relative w-full h-40 rounded-lg overflow-hidden mb-4'>
-              <Image src={imageSrc} alt={title} fill className='object-cover' />
+            className='bg-[#e4ebf4] border bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg p-2.5 flex flex-col'>
+            <div className='relative w-full h-40 rounded-lg overflow-hidden mb-6'>
+              <Image
+                src={imageSrc}
+                alt={title}
+                width={369}
+                height={241}
+                className='object-cover w-full'
+              />
             </div>
-            <h3 className='font-semibold text-lg mb-2'>{title}</h3>
-            <p className='text-gray-700 text-sm'>{description}</p>
+            <h3 className='font-semibold text-2xl md:text-3xl mb-2.5 leading-100%'>
+              {title}
+            </h3>
+            <p className='text-[#000000B2] text-base font-normal'>
+              {description}
+            </p>
           </div>
         ))}
       </div>
 
       {/* Bottom section */}
-      <div className='max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10'>
+      <div className='container mx-auto flex flex-col lg:flex-row items-center gap-[108px]'>
         <div className='relative w-full lg:w-1/2 h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-lg'>
           <Image
-            src='/images/Duis2.png'
+            src='/images/back/glack.png'
             alt='Large project'
             fill
-            className='object-cover rounded-xl'
+            className=' rounded-xl'
           />
         </div>
 
         <div className='w-full lg:w-1/2'>
-          <h2 className='text-3xl md:text-4xl font-bold mb-6'>
+          <h2 className='text-3xl md:text-4xl lg:text-[54px] font-semibold  mb-5.5 '>
             Duis convallis elit blandit turpis
           </h2>
-          <p className='text-gray-700 mb-6 leading-relaxed'>
+          <p className='text-[#000000B2] font-normal text-lg mb-5.5 leading-relaxed'>
             Tellus fermentum laoreet dignissim risus scelerisque pretium
             ullamcorper pretium. Sapien ut tellus ut hendrerit mauris. Varius
             dui sed vestibulum quis tellus egestas dolor eget magna. Dui
@@ -86,9 +101,11 @@ export default function WorkFlowSection() {
             nisl facilisis amet. Aenean feugiat ultrices mauris gravida iaculis.
             Amet sem.
           </p>
-          <button className='px-6 py-2 bg-white rounded-md shadow hover:bg-gray-100 transition'>
-            Start for Free
-          </button>
+          <div className='w-full sm:w-fit shadow-2xl'>
+            <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+              Start for Free
+            </SiteButton>
+          </div>
         </div>
       </div>
     </section>

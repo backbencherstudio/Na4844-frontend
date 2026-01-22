@@ -26,25 +26,13 @@ const Faq = () => {
   return (
     <div className='w-full relative overflow-hidden '>
       {/* Background Image */}
-      <Image
-        src='/images/back/faq.svg'
-        alt='faq background'
-        height={1000}
-        width={1000}
-        objectPosition='cover'
-        priority
-        className='absolute  left-0 right-0 bottom-0  h-full z-0 w-full'
-        sizes='100vw'
+      <div
+        className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[620px] z-0'
         style={{
-          objectFit: isMobile ? "cover" : "contain",
-          objectPosition: "top left",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, transparent 10%, black 40%, black 70%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, transparent 10%, black 40%, black 70%, transparent 100%)",
+          background:
+            "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 37.29%, #2E9AF0 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",
         }}
       />
-
       <div
         className={`mx-auto w-full px-2.5 md:px-0 max-w-[1216px] flex flex-col items-center text-center relative z-10 h-full lg:justify-center ${
           pathname === "/portfolio" ?

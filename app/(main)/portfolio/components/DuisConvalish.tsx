@@ -2,6 +2,7 @@
 
 "use client";
 
+import SiteButton from "@/components/shared/SiteButton";
 import Image from "next/image";
 
 const projects = [
@@ -49,16 +50,26 @@ export default function ProjectShowcase() {
         width={500}
         className='h-full w-full absolute'></Image>
       {/* Top cards */}
-      <div className='container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-20'>
+      <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20'>
         {projects.map(({ id, title, description, imageSrc }) => (
           <div
             key={id}
-            className='bg-white bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg p-4 flex flex-col'>
-            <div className='relative w-full h-40 rounded-lg overflow-hidden mb-4'>
-              <Image src={imageSrc} alt={title} fill className='object-cover' />
+            className='bg-[#e9e8f6] bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg p-4 flex flex-col'>
+            <div className='relative  rounded-lg overflow-hidden mb-4'>
+              <Image
+                src={imageSrc}
+                alt={title}
+                width={369}
+                height={241}
+                className=' w-full '
+              />
             </div>
-            <h3 className='font-semibold text-lg mb-2'>{title}</h3>
-            <p className='text-gray-700 text-sm'>{description}</p>
+            <h3 className='font-semibold text-2xl md:text-3xl mb-2.5 leading-100%'>
+              {title}
+            </h3>
+            <p className='text-[#000000B2] text-base font-normal'>
+              {description}
+            </p>
           </div>
         ))}
       </div>
@@ -70,7 +81,7 @@ export default function ProjectShowcase() {
             src='/images/Duis2.png'
             alt='Large project'
             fill
-            className='object-cover rounded-xl'
+            className=' rounded-xl'
           />
         </div>
 
@@ -86,9 +97,11 @@ export default function ProjectShowcase() {
             nisl facilisis amet. Aenean feugiat ultrices mauris gravida iaculis.
             Amet sem.
           </p>
-          <button className='px-6 py-2 bg-white rounded-md shadow hover:bg-gray-100 transition'>
-            Start for Free
-          </button>
+          <div className='w-full sm:w-fit shadow-2xl'>
+            <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+              Start for Free
+            </SiteButton>
+          </div>
         </div>
       </div>
     </section>

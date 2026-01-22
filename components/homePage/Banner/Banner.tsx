@@ -65,6 +65,18 @@ const Banner = () => {
   return (
     <div className='w-full  z-10 bg-linear-to-b from-[#4069E4] to-[rgba(255,255,255,0)] relative overflow-hidden'>
       {/* Top Banner Image */}
+      <div
+        className='absolute top-0 block lg:hidden left-0 right-0 bottom-0 w-full h-screen z-90  bg-contain'
+        style={{
+          backgroundImage: "url('/images/smallBg.png')",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          // maskImage:
+          //   "linear-gradient(to bottom, black 0%, black 50%, black 70%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0.1) 95%, transparent 100%)",
+          // WebkitMaskImage:
+          //   "linear-gradient(to bottom, black 0%, black 50%, black 70%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0.1) 95%, transparent 100%)",
+        }}
+      />
       <div className='absolute top-0 left-0 right-0 w-full z-10 pointer-events-none'>
         <Image
           src='/banner/bannertop.svg'
@@ -74,6 +86,7 @@ const Banner = () => {
           className='w-full h-auto object-contain absolute top-0'
           priority
         />
+
         <Image
           src='/images/back/Wallpaper Blur.png'
           alt='banner top decoration'
@@ -83,7 +96,12 @@ const Banner = () => {
           priority
         />
       </div>
-
+      <Image
+        src='/images/back/dhew.png'
+        alt='sdf'
+        height={500}
+        width={500}
+        className='h-full hidden lg:block w-full absolute top-50 '></Image>
       {/* Bottom Banner Image Holla */}
 
       <div className='w-full relative z-20 mt-[220px] md:mt-[180px]'>
@@ -131,7 +149,7 @@ const Banner = () => {
         <div className='relative z-10 w-full'>
           <div className='container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
             {/* TEXT CONTENT */}
-            <div className='flex flex-col gap-4 text-center lg:text-left w-full'>
+            <div className='flex flex-col gap-4 text-center lg:text-left w-full order-2 lg:order-1'>
               <h1 className='font-semibold text-black -tracking-[0.04em] text-3xl sm:text-4xl md:text-5xl lg:text-[54px]'>
                 Effortless Video
               </h1>
@@ -150,7 +168,7 @@ const Banner = () => {
             </div>
 
             {/* IMAGE */}
-            <div className='relative w-full h-[300px] sm:h-[400px] md:h-[480px] lg:h-[500px] flex justify-center'>
+            <div className='relative w-full h-[300px] sm:h-[400px] md:h-[480px] lg:h-[500px] flex justify-center order-1 lg:order-2'>
               <Image
                 src='/images/home-page/laptop.png'
                 alt='laptop image'
