@@ -98,10 +98,10 @@ const PriceCarosel = ({ discountApplied = false }: PriceCaroselProps) => {
   }));
 
   return (
-    <div className='relative py-0 mb-[15px] lg:mb-[170px]'>
+    <div className='relative py-0 container '>
       <div className='w-full'>
         <div className='w-full'>
-          <div className='mx-auto w-full px-2.5 md:px-0 max-w-[1216px]'>
+          <div className='mx-auto w-full px-2.5 md:px-0 '>
             <div className=''>
               {/* <Swiper
                 onSwiper={(swiper) => (sliderRef.current = swiper)}
@@ -142,9 +142,7 @@ const PriceCarosel = ({ discountApplied = false }: PriceCaroselProps) => {
         </div>
       </div>
       <div>
-        <div className='bg-gradient-to-b from-[#e4e8f5] to-[#fdffff] h-10 block lg:hidden'></div>
-
-        <ComparePlans />
+        {/* <div className='bg-gradient-to-b from-[#e4e8f5] to-[#fdffff] h-10 block lg:hidden'></div> */}
       </div>
     </div>
   );

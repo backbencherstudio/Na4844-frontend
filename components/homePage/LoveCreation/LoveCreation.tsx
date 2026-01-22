@@ -77,7 +77,7 @@ const LovedByCreatorsSection = () => {
   }, []);
 
   return (
-    <div className='w-full relative overflow-hidden lg:h-[1200px] -mt-20 lg:-mt-[354px]'>
+    <div className='w-full relative overflow-hidden lg:h-[1200px] '>
       {/* Background Image */}
       <Image
         src='/homepage/creatorbg.svg'

@@ -13,15 +13,15 @@ import Duies2ndPart from "@/components/homePage/Duies2ndPart/Duies2ndPart";
 
 export default function HomePage() {
   return (
-    <div className='w-full relative -mt-32 md:mt-0 lg:pb-20'>
-      <Head>
+    <div className='w-full  -mt-32 md:mt-0 lg:pb-20'>
+      {/* <Head>
         <link rel='preload' as='image' href='/homepage/workflowbg.png' />
         <link rel='preload' as='image' href='/homepage/creatorbg.svg' />
         <link rel='preload' as='image' href='/homepage/faqbg.svg' />
         <link rel='preload' as='image' href='/images/home-page/laptop.png' />
         <link rel='preload' as='image' href='/banner/bannertop.svg' />
         <link rel='preload' as='image' href='/banner/bannerbottom.svg' />
-      </Head>
+      </Head> */}
       <div className='flex flex-col space-y-12 lg:space-y-0'>
         {/* <Navbar /> */}
         <Banner />

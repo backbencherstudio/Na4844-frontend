@@ -79,7 +79,7 @@ const LovedByCreatorsSection = () => {
 
   return (
     <div
-      className='relative py-16'
+      className='relative py-[145px]'
       style={{
         background:
           "linear-gradient(180deg, #FFFFFF 0%, #7EA7CC 37.29%, rgba(255, 255, 255, 0) 100%)",
@@ -90,7 +90,7 @@ const LovedByCreatorsSection = () => {
         height={500}
         width={500}
         className='absolute w-full h-full'></Image>
-      <div className='flex justify-center'>
+      <div className='flex justify-center pb-10'>
         <PageHeaderButton text='Testimonials' className='' />
       </div>
 

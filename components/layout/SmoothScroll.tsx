@@ -1,5 +1,7 @@
 /** @format */
 
+/** @format */
+
 "use client";
 
 import Lenis from "lenis";
