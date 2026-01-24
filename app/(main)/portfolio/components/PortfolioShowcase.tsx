@@ -9,14 +9,14 @@ import { useEffect, useState } from "react";
 const PortfolioShowcase = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // useEffect(() => {
+  //   const checkMobile = () => {
+  //     setIsMobile(window.innerWidth < 1024);
+  //   };
+  //   checkMobile();
+  //   window.addEventListener("resize", checkMobile);
+  //   return () => window.removeEventListener("resize", checkMobile);
+  // }, []);
 
   return (
     <div className='relative overflow-hidden lg:h-[1452px] w-full lg:mt-[-700px] lg:-mb-24'>

@@ -32,7 +32,7 @@ const projects = [
 export default function WorkFlowSection() {
   return (
     <section
-      className='relative py-16'
+      className='relative py-10 lg:py-16'
       style={{
         background:
           "linear-gradient(180deg, #FFFFFF 0%, #7EA7CC 37.29%, rgba(255, 255, 255, 0) 100%)",
@@ -40,8 +40,8 @@ export default function WorkFlowSection() {
       <Image
         src='/images/back/border.svg'
         alt='sdf'
-        height={5000}
-        width={5000}
+        height={500}
+        width={500}
         className='h-full w-full absolute '></Image>
       <Image
         src='/images/back/dhew.png'
@@ -49,8 +49,8 @@ export default function WorkFlowSection() {
         height={500}
         width={500}
         className='h-full w-full absolute '></Image>
-      <p className='text-center text-3xl md:text-4xl lg:text-[54px] font-semibold  pb-[42px]'>
-        A Simple Powerful Workflow{" "}
+      <p className='text-center text-3xl container md:text-4xl lg:text-[54px] font-semibold  pb-[42px]'>
+        A Simple Powerful Workflow
       </p>
 
       {/* Top cards */}

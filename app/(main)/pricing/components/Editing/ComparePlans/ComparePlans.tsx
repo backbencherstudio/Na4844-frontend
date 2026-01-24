@@ -2,18 +2,25 @@
 
 import Row from "./Row";
 import Cell from "./Cell";
+import Image from "next/image";
 
 export default function ComparePlans() {
   return (
-    <section className='relative overflow-hidden py-10'>
+    <section className='relative overflow-hidden py-10 '>
       {/* 🔹 MIDDLE BACKGROUND GRADIENT */}
       <div
-        className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[920px] z-0'
+        className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[800px] z-0'
         style={{
           background:
-            "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 37.29%, #2E9AF0 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",
+            "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 30.29%, #57b2fc 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",
         }}
       />
+      {/* <Image
+        src='/images/faqbg.png'
+        alt='faq'
+        height={400}
+        width={500}
+        className='absolute w-full h-[600px] '></Image> */}
 
       {/* 🔹 CONTENT ABOVE GRADIENT */}
       <div className='relative z-20'>
@@ -23,7 +30,7 @@ export default function ComparePlans() {
         </h2>
 
         {/* Table Wrapper */}
-        <div className='max-w-6xl mx-auto rounded-3xl bg-[#89cceb]/25 backdrop-blur overflow-hidden p-16'>
+        <div className='container rounded-3xl bg-[#89cceb]/25 backdrop-blur overflow-hidden p-4 lg:p-16'>
           {/* Header Row */}
           <div className='grid grid-cols-5 border-b border-white/40 gap-[15px]'>
             <div />
@@ -42,19 +49,27 @@ export default function ComparePlans() {
             <Row>
               <Cell left>Per video</Cell>
               <Cell>
-                <p className='text-3xl font-semibold'>$0</p>
+                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                  $0
+                </p>
                 <span className='text-sm text-gray-500'>Per video</span>
               </Cell>
               <Cell>
-                <p className='text-3xl font-semibold'>$79</p>
+                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                  $79
+                </p>
                 <span className='text-sm text-gray-500'>Per video</span>
               </Cell>
               <Cell highlight>
-                <p className='text-3xl font-semibold'>$112</p>
+                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                  $112
+                </p>
                 <span className='text-sm text-gray-500'>Per video</span>
               </Cell>
               <Cell>
-                <p className='text-3xl font-semibold'>$158</p>
+                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                  $158
+                </p>
                 <span className='text-sm text-gray-500'>Per video</span>
               </Cell>
             </Row>

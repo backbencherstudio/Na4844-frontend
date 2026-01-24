@@ -92,7 +92,7 @@ const Banner = () => {
           alt='banner top decoration'
           width={1920}
           height={200}
-          className='w-full h-[800px] object-contain absolute mt-90 '
+          className='w-full h-[700px] opacity-70 absolute mt-90'
           priority
         />
       </div>

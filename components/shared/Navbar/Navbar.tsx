@@ -1,18 +1,41 @@
 /** @format */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import SiteButton from "../SiteButton";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
       {/* TOP NAVBAR */}
-      <div className='fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-16 text-white'>
+      <div
+        className={`fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-16 text-white ${
+          isScrolled ? "bg-[#1E32A4]/5 backdrop-blur-sm" : "bg-transparent"
+        }`}>
         <div className='flex items-center justify-between'>
           <Link href='/'>
             {" "}
@@ -45,33 +68,44 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE FULL SCREEN MENU */}
+      {/* MOBILE FULL SCREEN MENU */}
       {open && (
         <div
           className='fixed inset-0 z-40 bg-blue-400 text-white'
           style={{
             backgroundImage: "url(/images/MobileaMenu.png)",
-            backgroundPosition: "contain",
             backgroundSize: "cover",
           }}>
           {/* Top bar */}
           <div className='flex items-center justify-between px-6 py-6'>
-            <p className='text-xl font-semibold'>Flow Edit</p>
+            <Link href='/'>
+              <p className='text-xl font-semibold'>Flow Edit</p>
+            </Link>
             <button onClick={() => setOpen(false)}>
               <X size={28} />
             </button>
           </div>
 
           {/* Menu Items */}
-          <div className='flex h-full flex-col items-center justify-center gap-10 text-2xl  px-12.5'>
-            <p onClick={() => setOpen(false)}>Home</p>
-            <hr className='w-full' />
-            <p onClick={() => setOpen(false)}>Pricing</p>
-            <hr className='w-full' />
-
-            <p onClick={() => setOpen(false)}>Portfolio</p>
+          <div className='flex h-full flex-col items-center justify-center gap-10 text-2xl px-12.5'>
+            <Link href='/' onClick={() => setOpen(false)}>
+              <p>Home</p>
+            </Link>
             <hr className='w-full' />
 
-            <button className='mt-6 rounded-full bg-white px-10 py-3 text-black'>
+            <Link href='/pricing' onClick={() => setOpen(false)}>
+              <p>Pricing</p>
+            </Link>
+            <hr className='w-full' />
+
+            <Link href='/portfolio' onClick={() => setOpen(false)}>
+              <p>Portfolio</p>
+            </Link>
+            <hr className='w-full' />
+
+            <button
+              onClick={() => setOpen(false)}
+              className='mt-6 rounded-full bg-white px-10 py-3 text-black'>
               Start for Free
             </button>
           </div>

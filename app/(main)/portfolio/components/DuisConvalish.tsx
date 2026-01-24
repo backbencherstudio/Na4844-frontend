@@ -32,7 +32,7 @@ const projects = [
 export default function ProjectShowcase() {
   return (
     <section
-      className='relative '
+      className='relative'
       style={{
         background:
           "linear-gradient(180deg, #FFFFFF 0%, #7EA7CC 37.29%, rgba(255, 255, 255, 0) 100%)",
@@ -44,13 +44,13 @@ export default function ProjectShowcase() {
         width={5000}
         className='h-full w-full absolute'></Image>
       <Image
-        src='/images/back/dhew.png'
+        src='/images/wave4x.png'
         alt='sdf'
         height={500}
         width={500}
-        className='h-full w-full absolute'></Image>
+        className='h-full w-full absolute top-0 md:top-20 lg:top-50'></Image>
       {/* Top cards */}
-      <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20'>
+      <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[212px]'>
         {projects.map(({ id, title, description, imageSrc }) => (
           <div
             key={id}
@@ -78,7 +78,7 @@ export default function ProjectShowcase() {
       <div className='container mx-auto flex flex-col lg:flex-row items-center gap-10'>
         <div className='relative w-full lg:w-1/2 h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-lg'>
           <Image
-            src='/images/Duis2.png'
+            src='/images/back/glack.png'
             alt='Large project'
             fill
             className=' rounded-xl'

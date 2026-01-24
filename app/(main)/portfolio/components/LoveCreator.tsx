@@ -79,7 +79,7 @@ const LovedByCreatorsSection = () => {
 
   return (
     <div
-      className='relative py-[145px]'
+      className='relative py-[50px] md:py-[70px] lg:py-[145px] '
       style={{
         background:
           "linear-gradient(180deg, #FFFFFF 0%, #7EA7CC 37.29%, rgba(255, 255, 255, 0) 100%)",
@@ -99,7 +99,7 @@ const LovedByCreatorsSection = () => {
       </h1>
 
       <div className='w-full container'>
-        <div className='block lg:hidden w-full'>
+        {/* <div className='block lg:hidden w-full'>
           <Swiper
             modules={[FreeMode]}
             freeMode={true}
@@ -113,7 +113,7 @@ const LovedByCreatorsSection = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
+        </div> */}
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-6 w-full'>
           {testimonials.map((item, index) => (
