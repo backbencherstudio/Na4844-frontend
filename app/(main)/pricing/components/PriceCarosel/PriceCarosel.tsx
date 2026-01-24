@@ -14,7 +14,7 @@ import ComparePlans from "../Editing/ComparePlans/ComparePlans";
 import Image from "next/image";
 
 interface PriceCaroselProps {
-  discountApplied?: boolean;
+  discountMultiplier?: number;
 }
 
 const priceData: {
@@ -83,18 +83,10 @@ const priceData: {
   },
 ];
 
-const PriceCarosel = ({ discountApplied = false }: PriceCaroselProps) => {
-  const sliderRef = useRef<SwiperType | null>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Calculate prices with 35% discount
-  const calculatePrice = (originalPrice: number) => {
-    return discountApplied ? Math.round(originalPrice * 0.65) : originalPrice;
-  };
-
+const PriceCarosel = ({ discountMultiplier = 1 }: PriceCaroselProps) => {
   const discountedPriceData = priceData.map((card) => ({
     ...card,
-    price: calculatePrice(card.price),
+    price: Math.round(card.price * discountMultiplier),
   }));
 
   return (

@@ -12,7 +12,20 @@ const PriceBanner = ({
   value: PlanType;
   onToggleChange: (value: PlanType) => void;
 }) => {
-  const discountApplied = value === "monthly";
+  const discountApplied = value === "annual" || value === "semiannual";
+
+  const getDiscountMultiplier = (plan: PlanType) => {
+    switch (plan) {
+      case "monthly":
+        return 1;
+      case "semiannual":
+        return 0.8; // 20% off
+      case "annual":
+        return 0.65; // 35% off
+      default:
+        return 1;
+    }
+  };
 
   return (
     <div
@@ -20,7 +33,7 @@ const PriceBanner = ({
       bg-gradient-to-b from-[#6386f1] to-[#feffff] z-0'>
       {/* Mobile BG */}
       <div
-        className='absolute top-0 block lg:hidden h-screen left-0 right-0 bottom-0 z-50'
+        className='absolute top-0 block lg:hidden h-screen left-0 right-0 bottom-0 z-20'
         style={{
           backgroundImage: "url('/images/smallBg.png')",
           backgroundPosition: "center",
@@ -49,7 +62,7 @@ const PriceBanner = ({
       />
 
       {/* CONTENT */}
-      <div className='mx-auto flex flex-col gap-5 items-center mt-[100px] lg:mt-[185px] relative z-20'>
+      <div className='container mx-auto flex flex-col gap-5 items-center mt-[100px] lg:mt-[185px] relative z-20'>
         <PageHeaderButton text='Pricing' />
 
         <h1 className='font-semibold text-[44px] lg:text-[73px] -tracking-[0.04em] text-white text-center'>
@@ -67,7 +80,7 @@ const PriceBanner = ({
         </div>
       </div>
 
-      <PriceCarosel discountApplied={discountApplied} />
+      <PriceCarosel discountMultiplier={getDiscountMultiplier(value)} />
     </div>
   );
 };

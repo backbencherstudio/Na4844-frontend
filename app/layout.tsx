@@ -6,6 +6,7 @@ import "./globals.css";
 import ClientWrapper from "@/components/ClientWrapper";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
+import GetStarted from "@/components/homePage/GetStarted/Getstarted";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <Navbar />
         <ClientWrapper>{children}</ClientWrapper>
+
         <Footer />
       </body>
     </html>

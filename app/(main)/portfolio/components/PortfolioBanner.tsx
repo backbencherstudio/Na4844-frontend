@@ -47,8 +47,7 @@ const portfolioItems = [
 
 export default function PortfolioBanner() {
   return (
-    <section className='relative w-full overflow-hidden pt-24 pb-6'>
-      {/* 🔵 Gradient Background */}
+    <section className='relative w-full  pt-24 pb-6'>
       <div
         className='
         absolute inset-0
@@ -57,7 +56,7 @@ export default function PortfolioBanner() {
       '
       />
       <div
-        className='absolute -top-20 block lg:hidden left-0 right-0 bottom-0 w-full h-screen z-30  bg-contain'
+        className='absolute -top-20 block lg:hidden left-0 right-0 bottom-0 w-full h-screen z-0  bg-contain'
         style={{
           backgroundImage: "url('/images/smallBg.png')",
           backgroundPosition: "center",
