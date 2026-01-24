@@ -9,19 +9,19 @@ const footerMenu = [
   {
     title: "SITE MAP",
     links: [
-      { label: "Product", to: "/product" },
+      { label: "Product", to: "#t" },
       { label: "Pricing", to: "/pricing" },
-      { label: "Changelog", to: "/changelog" },
-      { label: "Sign in", to: "/signin" },
+      { label: "Changelog", to: "#" },
+      { label: "Sign in", to: "#" },
     ],
   },
   {
     title: "MADE BY US",
     links: [
-      { label: "Courses", to: "/courses" },
-      { label: "UI Templates", to: "/ui-templates" },
-      { label: "Icons", to: "/icons" },
-      { label: "Mockups", to: "/mockups" },
+      { label: "Courses", to: "#" },
+      { label: "UI Templates", to: "#" },
+      { label: "Icons", to: "#" },
+      { label: "Mockups", to: "#" },
     ],
   },
   {
