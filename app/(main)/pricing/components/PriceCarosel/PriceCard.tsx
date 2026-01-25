@@ -34,15 +34,23 @@ const PriceCard = ({
     <div className='relative py-6 lg:py-12 px-4 lg:px-12 shadow-lg border border-white/25 rounded-[10px] bg-white/50 overflow-hidden flex flex-col items-center gap-8'>
       {glow && (
         <div className='absolute inset-0 pointer-events-none -top-10 z-10 opacity-40'>
-          <Image
-            src='/images/price-page/card-glow.png'
+          {/* <Image
+            src='/images/back/Wallpaper Blur.png'
             alt='card glow bg'
             fill
             className='object-cover'
-          />
+          /> */}
         </div>
       )}
 
+      <div className='absolute inset-0 pointer-events-none -top-10 z-10 opacity-30'>
+        <Image
+          src='/images/price-page/card-glow.png'
+          alt='card glow bg'
+          fill
+          className='object-cover'
+        />
+      </div>
       <div className='flex flex-col items-center relative z-20'>
         <h1 className='font-medium text-sm text-black/70'>{title}</h1>
 
