@@ -32,7 +32,7 @@ export default function PlanCard({
 
       {/* Rows */}
       {checks.map((item, i) => (
-        <div key={i} className='py-4 border-b border-white/40 last:border-b-0'>
+        <div key={i} className='py-4 border-b border-white/40 last:border-b-0 '>
           {typeof item === "string" ?
             <span className='font-medium'>{item}</span>
           : item ?

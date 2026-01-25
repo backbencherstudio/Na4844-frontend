@@ -30,7 +30,15 @@ export default function ComparePlans() {
         </h2>
 
         {/* Table Wrapper */}
-        <div className='container rounded-3xl bg-[#89cceb]/25 backdrop-blur overflow-hidden p-4 lg:p-16'>
+        <div className='relative  container rounded-3xl bg-[#89cceb]/25 backdrop-blur overflow-hidden p-4 lg:p-16 '>
+          {/* <Image
+            src='/images/fullCompare.png'
+            alt='background'
+            width={800}
+            height={500}
+            className='absolute left-[900px] top-[340px] -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none'
+          /> */}
+
           {/* Header Row */}
           <div className='grid grid-cols-5 border-b border-white/40 gap-[15px]'>
             <div />
@@ -44,33 +52,43 @@ export default function ComparePlans() {
           </div>
 
           {/* Rows */}
-          <div className='gap-9'>
+          <div className='gap-9 '>
             {/* Price Row */}
-            <Row>
-              <Cell left>Per video</Cell>
-              <Cell>
-                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
-                  $0
-                </p>
-                <span className='text-sm text-gray-500'>Per video</span>
+            <Row className=''>
+              <Cell left>
+                <div className='text-center'>Per video</div>
               </Cell>
               <Cell>
-                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
-                  $79
-                </p>
-                <span className='text-sm text-gray-500'>Per video</span>
+                <div>
+                  <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                    $0
+                  </p>
+                  <span className='text-sm text-gray-500'>Per video</span>
+                </div>
+              </Cell>
+              <Cell>
+                <div className=''>
+                  <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                    $79
+                  </p>
+                  <span className='text-sm text-gray-500'>Per video</span>
+                </div>
               </Cell>
               <Cell highlight>
-                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
-                  $112
-                </p>
-                <span className='text-sm text-gray-500'>Per video</span>
+                <div>
+                  <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                    $112
+                  </p>
+                  <span className='text-sm text-gray-500'>Per video</span>
+                </div>
               </Cell>
               <Cell>
-                <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
-                  $158
-                </p>
-                <span className='text-sm text-gray-500'>Per video</span>
+                <div>
+                  <p className='text-base md:text-lg lg:text-3xl font-normal lg:font-semibold'>
+                    $158
+                  </p>
+                  <span className='text-sm text-gray-500'>Per video</span>
+                </div>
               </Cell>
             </Row>
 

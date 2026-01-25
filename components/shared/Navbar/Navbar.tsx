@@ -32,10 +32,9 @@ export default function Navbar() {
   return (
     <>
       {/* TOP NAVBAR */}
+      {/* ${isScrolled ? "bg-[#1E32A4]/5 backdrop-blur-sm" : "bg-transparent"} */}
       <div
-        className={`fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-16 text-white ${
-          isScrolled ? "bg-[#1E32A4]/5 backdrop-blur-sm" : "bg-transparent"
-        }`}>
+        className={`fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-16 text-white `}>
         <div className='flex items-center justify-between'>
           <Link href='/'>
             {" "}

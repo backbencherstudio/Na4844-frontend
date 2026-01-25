@@ -37,8 +37,8 @@ const footerMenu = [
 
 const Footer: FC = () => {
   return (
-    <footer className='w-full bg-gradient-to-b from-white via-blue-50/0 to-white pt-20 pb-10'>
-      <div className='container mx-auto px-4 xl:px-0'>
+    <footer className='w-full bg-gradient-to-b from-white via-blue-50/0 to-white pb-[96px]'>
+      <div className='container '>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14'>
           {/* Left Brand / Social */}
           <div className='flex flex-col lg:items-center items-start'>

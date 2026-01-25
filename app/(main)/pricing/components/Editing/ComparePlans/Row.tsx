@@ -16,7 +16,7 @@ export default function Row({
   return (
     <div
       className={`grid grid-cols-5 gap-[15px] text-center
-      ${last ? "" : "border-b border-white/30"}
+      ${last ? "" : "border-b border-white/30 "}
       ${className}`}>
       {children}
     </div>
