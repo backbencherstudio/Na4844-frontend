@@ -1,6 +1,7 @@
 /** @format */
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type LoginFormData = {
@@ -9,6 +10,7 @@ type LoginFormData = {
 };
 
 export default function LoginPage() {
+  const Router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,15 +19,23 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     console.log("Login Data:", data);
+    const isValid =
+      data.email === "test@gmail.com" && data.password === "123456";
 
-    // ✅ later API integrate here
-    // await loginUser(data)
+    if (isValid) {
+      Router.push("/stripe-payment"); // ✅ Redirect to Payment Page
+    } else {
+      alert("Invalid email or password ❌");
+    }
   };
+
+  // ✅ later API integrate here
+  // await loginUser(data)
 
   return (
     <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4'>
       {/* ✅ Background Gradient */}
-      <div className='absolute inset-0 bg-gradient-to-b from-blue-700 via-indigo-500 to-blue-200' />
+      <div className='absolute inset-0 bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200' />
 
       {/* ✅ Soft overlay rings */}
       <div className='absolute inset-0 opacity-20'>

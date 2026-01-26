@@ -34,7 +34,9 @@ export default function Navbar() {
       {/* TOP NAVBAR */}
       {/* ${isScrolled ? "bg-[#1E32A4]/5 backdrop-blur-sm" : "bg-transparent"} */}
       <div
-        className={`fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-16 text-white `}>
+        className={`fixed top-0 left-0 z-30 w-full px-6 md:px-10 lg:px-20.5 py-6 transition-all duration-300
+ ${isScrolled ? "bg-white/80 backdrop-blur-md text-black shadow-md" : "bg-transparent text-white"}
+`}>
         <div className='flex items-center justify-between'>
           <Link href='/'>
             {" "}
@@ -42,7 +44,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className='hidden lg:flex items-center gap-12 text-base font-medium text-[#fff]'>
+          <div className='hidden lg:flex items-center gap-12 text-base font-medium '>
             <Link href='/'>
               <p>Home</p>
             </Link>
@@ -57,6 +59,14 @@ export default function Navbar() {
                 Start for Free
               </SiteButton>
             </div>
+            <Link href='/singup'>
+              {" "}
+              <button
+                // onClick={() => setOpen(false)}
+                className=' rounded-xl bg-white px-6 py-2.5 text-black cursor-pointer'>
+                Sing In
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Icon */}
@@ -80,7 +90,7 @@ export default function Navbar() {
             <Link href='/'>
               <p className='text-xl font-semibold'>Flow Edit</p>
             </Link>
-            <button onClick={() => setOpen(false)}>
+            <button onClick={() => setOpen(false)} className='cursor-pointer'>
               <X size={28} />
             </button>
           </div>
@@ -103,10 +113,17 @@ export default function Navbar() {
             <hr className='w-full' />
 
             <button
-              onClick={() => setOpen(false)}
-              className='mt-6 rounded-full bg-white px-10 py-3 text-black'>
+              // onClick={() => setOpen(false)}
+              className='mt-6 rounded-xl bg-white text-xl font-medium px-10 py-3 text-black w-full'>
               Start for Free
             </button>
+            <Link href='/singup' className='w-full'>
+              <button
+                onClick={() => setOpen(false)}
+                className=' rounded-xl w-full bg-white text-xl font-medium px-6 py-2.5 text-black'>
+                Sing In
+              </button>
+            </Link>
           </div>
         </div>
       )}
