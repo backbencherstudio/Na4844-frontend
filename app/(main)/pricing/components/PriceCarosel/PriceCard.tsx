@@ -5,6 +5,7 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { GoCreditCard } from "react-icons/go";
 import SiteButton from "@/components/shared/SiteButton";
 import DiamondIcon from "@/components/shared/DiamondCheckIcon";
+import Link from "next/link";
 
 export type FeatureType = "check" | "minus";
 
@@ -79,10 +80,13 @@ const PriceCard = ({
       <div className='h-px w-[95%] bg-black/15' />
 
       <div className='w-fit shadow-xl relative z-20 rounded-lg'>
-        <div className='flex items-center gap-2 bg-[#3495fd] text-white py-1.5 px-4 rounded-lg'>
-          <span>Start 14 Days Trial</span>
-          <GoCreditCard />
-        </div>
+        <Link href='/stripe-payment'>
+          {" "}
+          <div className='flex items-center gap-2 bg-[#3495fd] text-white py-1.5 px-4 rounded-lg'>
+            <span>Start 14 Days Trial</span>
+            <GoCreditCard />
+          </div>
+        </Link>
       </div>
     </div>
   );
