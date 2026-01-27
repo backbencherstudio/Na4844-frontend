@@ -15,12 +15,12 @@ export default function ComparePlans() {
             "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 30.29%, #57b2fc 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",
         }}
       />
-      {/* <Image
-        src='/images/faqbg.png'
+      <Image
+        src='/images/compareblur.png'
         alt='faq'
         height={400}
         width={500}
-        className='absolute w-full h-[600px] '></Image> */}
+        className='absolute w-full h-[700px] '></Image>
 
       {/* 🔹 CONTENT ABOVE GRADIENT */}
       <div className='relative z-20'>
