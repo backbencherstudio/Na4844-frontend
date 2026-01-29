@@ -36,7 +36,7 @@ const PriceCard = ({
   const token = useAppSelector((state) => state.auth.token);
 
   // ✅ destination decide
-  const redirectUrl = token ? "/stripe-payment" : "/singup";
+  const redirectUrl = token ? "/subscribe" : "/singup";
 
   return (
     <div className='relative py-6 lg:py-12 px-4 lg:px-12 shadow-lg border border-white/25 rounded-[10px] bg-white/50 overflow-hidden flex flex-col items-center gap-8'>
