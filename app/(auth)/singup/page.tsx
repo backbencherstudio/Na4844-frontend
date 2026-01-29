@@ -53,7 +53,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4'>
+    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4 mb-10'>
       {/* Background */}
       <div className='absolute inset-0 bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200' />
 

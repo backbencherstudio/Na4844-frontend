@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { SerializedError } from "@reduxjs/toolkit";
 
 type LoginFormData = {
   email: string;
@@ -18,42 +17,53 @@ type LoginFormData = {
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [apiError, setApiError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  // ✅ RTK Query hook
+  // ✅ RTK Query login hook
   const [login, { isLoading }] = useLoginMutation();
 
   const onSubmit = async (data: LoginFormData) => {
-    setApiError(null);
-
     try {
       await login(data).unwrap();
-      router.push("/"); // ✅ login success redirect
+      // ✅ success → home page
+      router.push("/pricing");
     } catch (err: unknown) {
-      let message = "Login failed";
+      let message = "Email or password is incorrect";
 
+      // ✅ safely extract backend message
       if (typeof err === "object" && err !== null && "status" in err) {
         const fetchError = err as FetchBaseQueryError;
-        message =
-          (fetchError.data as { message?: string })?.message ??
-          "Invalid credentials";
-      } else {
-        const serializedError = err as SerializedError;
-        message = serializedError.message ?? message;
+
+        if (
+          fetchError.data &&
+          typeof fetchError.data === "object" &&
+          "message" in fetchError.data
+        ) {
+          message = String((fetchError.data as { message: unknown }).message);
+        }
       }
 
-      setApiError(message);
+      // ✅ field-level errors only (STRING only)
+      setError("email", {
+        type: "manual",
+        message,
+      });
+
+      setError("password", {
+        type: "manual",
+        message,
+      });
     }
   };
 
   return (
-    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4'>
+    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4 mb-10'>
       {/* Background */}
       <div className='absolute inset-0 bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200' />
 
@@ -70,13 +80,6 @@ export default function LoginPage() {
         <p className='text-sm text-gray-600 mt-1'>
           Login with your email & password
         </p>
-
-        {/* API Error */}
-        {apiError && (
-          <div className='mt-4 rounded-lg bg-red-100 text-red-700 px-4 py-2 text-sm'>
-            {apiError}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className='mt-6 space-y-4'>
           {/* Email */}
@@ -95,9 +98,7 @@ export default function LoginPage() {
               })}
             />
             {errors.email && (
-              <p className='text-red-500 text-sm mt-1'>
-                {errors.email.message}
-              </p>
+              <p className='text-red-500 text-sm mt-1'>error email</p>
             )}
           </div>
 
@@ -130,9 +131,7 @@ export default function LoginPage() {
             </div>
 
             {errors.password && (
-              <p className='text-red-500 text-sm mt-1'>
-                {errors.password.message}
-              </p>
+              <p className='text-red-500 text-sm mt-1'>error password</p>
             )}
           </div>
 

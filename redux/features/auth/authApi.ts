@@ -15,28 +15,25 @@ interface LoginResponse {
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // 🔐 LOGIN
-    login: builder.mutation<LoginResponse, Record<string, any>>({
-      query: (body) => ({
-        url: "/auth/login",
-        method: "POST",
-        body,
-      }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        try {
-          const { data } = await queryFulfilled;
+  login: builder.mutation({
+  query: (body) => ({
+    url: "/auth/login",
+    method: "POST",
+    body,
+  }),
+  onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+    const { data } = await queryFulfilled;
 
-          dispatch(
-            setCredentials({
-              token: data.authorization.access_token,
-              role: data.type,
-              user: null, // backend does not return user
-            })
-          );
-        } catch (error) {
-          console.error("Login error:", error);
-        }
-      },
-    }),
+    dispatch(
+      setCredentials({
+        token: data.authorization.access_token,
+        role: data.type,
+        user: null,
+      })
+    );
+  },
+}),
+
 
     // 📝 SIGNUP
     signup: builder.mutation({
