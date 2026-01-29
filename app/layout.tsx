@@ -7,6 +7,7 @@ import ClientWrapper from "@/components/ClientWrapper";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import GetStarted from "@/components/homePage/GetStarted/Getstarted";
+import StoreProviders from "../redux/StoreProviders";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,8 +28,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${inter.variable} antialiased`}>
         <Navbar />
-        <ClientWrapper>{children}</ClientWrapper>
 
+        <StoreProviders>
+          <ClientWrapper>{children}</ClientWrapper>
+        </StoreProviders>
         <Footer />
       </body>
     </html>
