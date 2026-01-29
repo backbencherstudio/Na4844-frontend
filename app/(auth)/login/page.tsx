@@ -1,8 +1,13 @@
 /** @format */
 "use client";
+
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 type LoginFormData = {
   email: string;
@@ -10,54 +15,66 @@ type LoginFormData = {
 };
 
 export default function LoginPage() {
-  const Router = useRouter();
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    setError,
+    formState: { errors },
   } = useForm<LoginFormData>();
 
-  const onSubmit = async (data: LoginFormData) => {
-    console.log("Login Data:", data);
-    const isValid =
-      data.email === "test@gmail.com" && data.password === "123456";
+  // ✅ RTK Query login hook
+  const [login, { isLoading }] = useLoginMutation();
 
-    if (isValid) {
-      Router.push("/stripe-payment"); // ✅ Redirect to Payment Page
-    } else {
-      alert("Invalid email or password ❌");
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await login(data).unwrap();
+      // ✅ success → home page
+      router.push("/pricing");
+    } catch (err: unknown) {
+      let message = "Email or password is incorrect";
+
+      // ✅ safely extract backend message
+      if (typeof err === "object" && err !== null && "status" in err) {
+        const fetchError = err as FetchBaseQueryError;
+
+        if (
+          fetchError.data &&
+          typeof fetchError.data === "object" &&
+          "message" in fetchError.data
+        ) {
+          message = String((fetchError.data as { message: unknown }).message);
+        }
+      }
+
+      // ✅ field-level errors only (STRING only)
+      setError("email", {
+        type: "manual",
+        message,
+      });
+
+      setError("password", {
+        type: "manual",
+        message,
+      });
     }
   };
 
-  // ✅ later API integrate here
-  // await loginUser(data)
-
   return (
-    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4'>
-      {/* ✅ Background Gradient */}
+    <div className='min-h-screen w-full relative overflow-hidden flex items-center justify-center px-4 mb-10'>
+      {/* Background */}
       <div className='absolute inset-0 bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200' />
 
-      {/* ✅ Soft overlay rings */}
+      {/* Overlay rings */}
       <div className='absolute inset-0 opacity-20'>
         <div className='w-[1200px] h-[1200px] border border-white/30 rounded-full absolute -top-[650px] left-1/2 -translate-x-1/2' />
         <div className='w-[900px] h-[900px] border border-white/20 rounded-full absolute -top-[500px] left-1/2 -translate-x-1/2' />
         <div className='w-[700px] h-[700px] border border-white/15 rounded-full absolute -top-[400px] left-1/2 -translate-x-1/2' />
       </div>
 
-      {/* ✅ Bottom wave */}
-      <div className='absolute bottom-0 left-0 w-full'>
-        <svg
-          viewBox='0 0 1440 320'
-          className='w-full h-[220px]'
-          preserveAspectRatio='none'>
-          <path
-            fill='white'
-            fillOpacity='0.55'
-            d='M0,288L60,266.7C120,245,240,203,360,181.3C480,160,600,160,720,176C840,192,960,224,1080,224C1200,224,1320,192,1380,176L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z'></path>
-        </svg>
-      </div>
-
-      {/* ✅ Login Card */}
+      {/* Card */}
       <div className='relative w-full max-w-md bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-6'>
         <h1 className='text-2xl font-bold text-gray-900'>Welcome Back</h1>
         <p className='text-sm text-gray-600 mt-1'>
@@ -81,9 +98,7 @@ export default function LoginPage() {
               })}
             />
             {errors.email && (
-              <p className='text-red-500 text-sm mt-1'>
-                {errors.email.message}
-              </p>
+              <p className='text-red-500 text-sm mt-1'>error email</p>
             )}
           </div>
 
@@ -92,44 +107,46 @@ export default function LoginPage() {
             <label className='text-sm font-medium text-gray-700'>
               Password
             </label>
-            <input
-              type='password'
-              placeholder='Enter your password'
-              className='mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
-              {...register("password", {
-                required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
-              })}
-            />
+
+            <div className='relative mt-1'>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder='Enter your password'
+                className='w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: { value: 6, message: "Minimum 6 characters" },
+                })}
+              />
+
+              <button
+                type='button'
+                onClick={() => setShowPassword((prev) => !prev)}
+                className='absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700'
+                aria-label={showPassword ? "Hide password" : "Show password"}>
+                {showPassword ?
+                  <EyeOff size={20} />
+                : <Eye size={20} />}
+              </button>
+            </div>
+
             {errors.password && (
-              <p className='text-red-500 text-sm mt-1'>
-                {errors.password.message}
-              </p>
+              <p className='text-red-500 text-sm mt-1'>error password</p>
             )}
           </div>
-
-          {/* Forgot Password */}
-          {/* <div className='flex justify-end'>
-            <button
-              type='button'
-              className='text-sm text-blue-600 font-semibold hover:underline'>
-              Forgot Password?
-            </button>
-          </div> */}
 
           {/* Submit */}
           <button
             type='submit'
-            disabled={isSubmitting}
+            disabled={isLoading}
             className='w-full rounded-xl bg-blue-600 text-white py-3 font-semibold hover:bg-blue-700 transition disabled:opacity-60'>
-            {isSubmitting ? "Logging in..." : "Login"}
+            {isLoading ? "Logging in..." : "Login"}
           </button>
 
-          {/* Signup Link */}
+          {/* Signup */}
           <p className='text-center text-sm text-gray-600'>
             Don’t have an account?{" "}
-            <Link href='/singup'>
-              {" "}
+            <Link href='/signup'>
               <span className='text-blue-600 font-semibold cursor-pointer hover:underline'>
                 Sign up
               </span>
