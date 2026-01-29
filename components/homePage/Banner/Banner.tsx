@@ -174,7 +174,7 @@ const Banner = () => {
                 alt='laptop image'
                 fill
                 priority
-                className='object-contain lg:object-cover'
+                className='object-contain lg:object-cover '
               />
             </div>
           </div>
