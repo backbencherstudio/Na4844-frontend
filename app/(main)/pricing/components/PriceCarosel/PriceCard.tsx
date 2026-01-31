@@ -17,6 +17,7 @@ interface Feature {
 }
 
 interface PriceCardProps {
+  id: number;
   title: string;
   price: number;
   features: Feature[];
@@ -26,6 +27,7 @@ interface PriceCardProps {
 }
 
 const PriceCard = ({
+  id,
   title,
   desc,
   price,
@@ -38,12 +40,16 @@ const PriceCard = ({
   // ✅ destination decide
   const redirectUrl = token ? "/subscribe" : "/singup";
 
+  // const redirectUrl =
+  //   token ?
+  //     `/subscribe?price=${price}&plan=${title}`
+  //   : `/signup?price=${price}&plan=${title}`;
+
   return (
     <div className='relative py-6 lg:py-12 px-4 lg:px-12 shadow-lg border border-white/25 rounded-[10px] bg-white/50 overflow-hidden flex flex-col items-center gap-8'>
       {glow && (
         <div className='absolute inset-0 pointer-events-none -top-10 z-10 opacity-40' />
       )}
-
       <div className='absolute inset-0 pointer-events-none -top-10 z-10 opacity-30'>
         <Image
           src='/images/price-page/card-glow.png'
@@ -85,11 +91,19 @@ const PriceCard = ({
         <Link href={redirectUrl}>
           <div className='flex items-center gap-2 bg-[#3495fd] text-white py-1.5 px-4 rounded-lg cursor-pointer'>
             <span>
-              {token ? "Proceed to Payment" : "Sign up to Start Trial"}
+              {token ? "Start 14 Days Trial" : "Start 14 Days Trial"}
             </span>
             <GoCreditCard />
           </div>
         </Link>
+        {/* <Link href={redirectUrl}>
+          <div className='flex items-center gap-2 bg-[#3495fd] text-white py-1.5 px-4 rounded-lg cursor-pointer'>
+            <span>
+              {token ? "Proceed to Payment" : "Sign up to Start Trial"}
+            </span>
+            <GoCreditCard />
+          </div>
+        </Link> */}
       </div>
     </div>
   );

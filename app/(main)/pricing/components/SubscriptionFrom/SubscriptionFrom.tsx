@@ -1,4 +1,6 @@
 /** @format */
+
+/** @format */
 "use client";
 
 import {
@@ -187,3 +189,22 @@ export default function SubscriptionForm() {
     </div>
   );
 }
+
+// interface SubscriptionFormProps {
+//   price: number;
+//   plan: string | null;
+// }
+
+// const SubscriptionForm = ({ price, plan }: SubscriptionFormProps) => {
+//   return (
+//     <div>
+//       <h2>Checkout</h2>
+//       <p>Plan: {plan}</p>
+//       <p>Amount: ${price}</p>
+
+//       {/* Stripe CardElement / PaymentElement here */}
+//     </div>
+//   );
+// };
+
+// export default SubscriptionForm;
