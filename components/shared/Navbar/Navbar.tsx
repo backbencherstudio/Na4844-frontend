@@ -62,9 +62,9 @@ export default function Navbar() {
             <Link href='/singup'>
               {" "}
               <button
-                // onClick={() => setOpen(false)}
-                className=' rounded-xl bg-white px-6 py-2.5 text-black cursor-pointer'>
-                Sing In
+                className='rounded-xl bg-white/80 px-6 py-2.5 text-black cursor-pointer
+            hover:bg-white/90 '>
+                Sign In
               </button>
             </Link>
           </div>

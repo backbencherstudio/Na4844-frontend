@@ -18,6 +18,7 @@ interface PriceCaroselProps {
 }
 
 const priceData: {
+  id: number;
   title: string;
   price: number;
   glow: boolean;
@@ -26,6 +27,7 @@ const priceData: {
   features: { text: string; type: FeatureType }[];
 }[] = [
   {
+    id: 1,
     title: "Core",
     price: 409,
     desc: "$65 Per video",
@@ -44,6 +46,7 @@ const priceData: {
     ],
   },
   {
+    id: 2,
     title: "Growth",
     price: 582,
     desc: "Per video",
@@ -63,6 +66,7 @@ const priceData: {
     ],
   },
   {
+    id: 3,
     title: "Plus",
     price: 820,
     desc: "Per video",
