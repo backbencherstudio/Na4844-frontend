@@ -3,11 +3,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientWrapper from "@/components/ClientWrapper";
+
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
-import GetStarted from "@/components/homePage/GetStarted/Getstarted";
+import ClientWrapper from "@/components/ClientWrapper";
 import StoreProviders from "../redux/StoreProviders";
+import AppInitializer from "@/redux/features/appInitilaze/Appintialize";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,14 +27,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Navbar />
-
         <StoreProviders>
+          {/* 🔥 Bootstrap auth + subscription once */}
+          <AppInitializer />
+
+          <Navbar />
+
           <ClientWrapper>{children}</ClientWrapper>
+          <Toaster position="top-right" />
+          <Footer />
         </StoreProviders>
-        <Footer />
       </body>
     </html>
   );

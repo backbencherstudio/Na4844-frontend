@@ -9,7 +9,15 @@ export const paymentApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+
+    createTrile: (builder.mutation({
+      query: (body) => ({
+        url: "/trail/create",
+        method: "POST",
+        body,
+      }),
+    })),
   }),
 });
 
-export const { useCreatePaymentMutation } = paymentApi;
+export const { useCreatePaymentMutation, useCreateTrileMutation } = paymentApi;
