@@ -53,7 +53,7 @@ export default function PriceCard({
 
       if (response.success) {
         toast.success(
-          toast.success("Trial started successfully 🎉")
+          toast.success("Trial started successfully ")
         );
         router.push("/");
         return;
@@ -68,7 +68,7 @@ export default function PriceCard({
       //   router.push("/subscribe");
       // }
     } catch (error) {
-      console.error("Create trial failed ❌", error);
+      console.error("Create trial failed ", error);
       toast.error("Something went wrong. Please subscribe.");
       router.push("/");
     }
