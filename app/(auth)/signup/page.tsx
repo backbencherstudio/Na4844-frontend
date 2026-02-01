@@ -19,6 +19,7 @@ export default function SignupPage() {
   const {
     register,
     handleSubmit,
+     reset,
     formState: { errors },
   } = useForm<SignupFormData>();
 
@@ -34,6 +35,7 @@ export default function SignupPage() {
     try {
       await signup(data).unwrap();
       alert("Registration successful!");
+      reset();
       // router.push("/login");
     } catch (err: unknown) {
       let message = "Registration failed";
