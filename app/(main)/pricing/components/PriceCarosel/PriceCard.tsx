@@ -39,7 +39,7 @@ export default function PriceCard({
   const [createTrial, { isLoading }] = useCreateTrileMutation();
   const router = useRouter();
 
-  
+
 
   const handleSubscribe = async () => {
     try {
@@ -53,12 +53,12 @@ export default function PriceCard({
 
       if (response.success) {
         toast.success(
-           toast.success("Trial started successfully 🎉")
+          toast.success("Trial started successfully 🎉")
         );
-        router.push("/pricing");
+        router.push("/");
         return;
       }
-     
+
       toast.warning("You need to subscribe to continue !");
       router.push("/subscribe");
 
@@ -78,11 +78,15 @@ export default function PriceCard({
 
   return (
     <div
-      className={`relative p-6 border rounded-lg bg-white flex flex-col gap-6 ${glow ? "ring-2 ring-blue-500 shadow-xl" : ""
+      className={`relative px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6  ${glow ? " shadow-xl" : ""
         }`}
+
     >
+      <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-3 -right-5 transform opacity-30 z-0" />
       {/* Header */}
-      <div className="text-center">
+     <div className="relative z-10">
+       <div className="text-center">
+
         <h2 className="text-sm text-gray-600">{title}</h2>
         <div className="flex justify-center items-center gap-1">
           <BsCurrencyDollar />
@@ -93,7 +97,7 @@ export default function PriceCard({
       </div>
 
       {/* Features */}
-      <ul className="space-y-3">
+      <ul className="space-y-5">
         {features.map((f, i) => (
           <li key={i} className="flex gap-3">
             <DiamondIcon type={f.type} />
@@ -107,18 +111,19 @@ export default function PriceCard({
         <button
           onClick={handleSubscribe}
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white text-center py-2 rounded disabled:opacity-60"
+          className="w-full bg-blue-600 text-white text-center mt-9  py-2 rounded-xl disabled:opacity-60"
         >
           {isLoading ? "Please wait..." : "Start 14 Days Trial"}
         </button>
       ) : (
         <Link
           href={redirectUrl}
-          className="w-full bg-blue-600 text-white text-center py-2 rounded block"
+          className="w-full bg-blue-600 text-white text-center py-2 rounded block "
         >
           Sign up to Start Trial
         </Link>
       )}
+     </div>
     </div>
   );
 }
@@ -177,7 +182,7 @@ export default function PriceCard({
 //     console.log("plan and interval", title, packageType);
 //     // Implement subscription logic here
 
-   
+
 //     // try {
 //     //   const response = await createTrial({
 //     //     plan: title,
@@ -188,7 +193,7 @@ export default function PriceCard({
 //     //   console.log("API RESPONSE 👉", response.data);
 
 //     //   // example usage
-     
+
 //     // } catch (error) {
 //     //   console.error("Create trial failed ❌", error);
 //     // }
@@ -227,10 +232,10 @@ export default function PriceCard({
 //       console.error("Create trial failed ❌", error);
 //       router.push("/pricing");
 //     }
-  
-   
+
+
 //   }
- 
+
 //   // console.log("token in price card",token)
 
 //   const hasActiveSubscription = false;
@@ -267,7 +272,7 @@ export default function PriceCard({
 //           Subscription Active
 //         </button>
 //       ) : (
-        
+
 //           // <button className="w-full bg-blue-600 text-white cursor-pointer py-2 rounded">
 //           //   {token ? "Start 14 Days Trial" : "Sign up to Start Trial"}
 //           // </button>
@@ -281,13 +286,13 @@ export default function PriceCard({
 //             ) : (
 //             <Link href={redirectUrl} className="w-full bg-blue-600 text-white text-center py-2 rounded block">
 //               Sign up to Start Trial
-                   
+
 //             </Link>
 //             ) 
 //           }
-          
+
 //           </>
-       
+
 //       )}
 
 //       {hasActiveSubscription && (
@@ -343,7 +348,7 @@ export default function PriceCard({
 //   const redirectUrl = token ? "/subscribe" : "/singup";
 
 
-  
+
 //    const tokenss =  localStorage.getItem("token")
 
 
@@ -431,6 +436,7 @@ export default function PriceCard({
 // import Link from "next/link";
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from "sonner";
+import Image from "next/image";
 
 // export type FeatureType = "check" | "minus";
 

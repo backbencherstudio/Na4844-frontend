@@ -4,6 +4,11 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { logOut, setCredentials } from "../features/auth/authSlice";
+import type { RootState } from "../store";
+
+interface RefreshResponse {
+  access_token: string;
+}
 
 // 🔹 base query (ENV based URL)
 const baseQuery = fetchBaseQuery({
@@ -41,26 +46,26 @@ const baseQueryWithReauth: BaseQueryFn = async (
       extraOptions
     );
 
-    if (
-      refreshResult.data &&
-      typeof refreshResult.data === "object" &&
-      "access_token" in refreshResult.data
-    ) {
-      const state = api.getState() as { auth?: any };
+if (
+  refreshResult.data &&
+  typeof refreshResult.data === "object" &&
+  "access_token" in refreshResult.data
+) {
+  const data = refreshResult.data as RefreshResponse;
+  const state = api.getState() as RootState;
 
-      api.dispatch(
-        setCredentials({
-          token: refreshResult.data.access_token,
-          role: state?.auth?.role,
-          user: state?.auth?.user,
-        })
-      );
+  api.dispatch(
+    setCredentials({
+      token: data.access_token,
+      role: state?.auth?.role,
+      user: state?.auth?.user,
+    })
+  );
 
-      // 🔁 retry original request
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logOut());
-    }
+  result = await baseQuery(args, api, extraOptions);
+} else {
+  api.dispatch(logOut());
+}
   }
 
   return result;
