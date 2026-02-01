@@ -22,15 +22,17 @@ const priceData: {
   title: string;
   price: number;
   glow: boolean;
+  packageType: string;
   monthlypakage: string;
   desc: string;
   features: { text: string; type: FeatureType }[];
 }[] = [
   {
     id: 1,
-    title: "Core",
+    title: "CORE",
     price: 409,
     desc: "$65 Per video",
+    packageType: "MONTHLY",
     monthlypakage: "$629 Monthly",
     glow: false,
     features: [
@@ -47,9 +49,10 @@ const priceData: {
   },
   {
     id: 2,
-    title: "Growth",
+    title: "GROWTH",
     price: 582,
     desc: "Per video",
+    packageType: "MONTHLY",
     monthlypakage: "$629 Monthly",
 
     glow: true,
@@ -67,9 +70,10 @@ const priceData: {
   },
   {
     id: 3,
-    title: "Plus",
+    title: "PLUS",
     price: 820,
     desc: "Per video",
+    packageType: "MONTHLY",
     monthlypakage: "$629 Monthly",
 
     glow: false,

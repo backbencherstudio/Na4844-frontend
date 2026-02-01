@@ -59,7 +59,7 @@ export default function Navbar() {
                 Start for Free
               </SiteButton>
             </div>
-            <Link href='/singup'>
+            <Link href='/signup'>
               {" "}
               <button
                 className='rounded-xl bg-white/80 px-6 py-2.5 text-black cursor-pointer
@@ -117,11 +117,11 @@ export default function Navbar() {
               className='mt-6 rounded-xl bg-white text-xl font-medium px-10 py-3 text-black w-full'>
               Start for Free
             </button>
-            <Link href='/singup' className='w-full'>
+            <Link href='/signup' className='w-full'>
               <button
                 onClick={() => setOpen(false)}
                 className=' rounded-xl w-full bg-white text-xl font-medium px-6 py-2.5 text-black'>
-                Sing In
+                Sign In
               </button>
             </Link>
           </div>
