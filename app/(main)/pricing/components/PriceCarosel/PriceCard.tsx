@@ -121,16 +121,16 @@ export default function PriceCard({
         <button
           onClick={handleSubscribe}
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white text-center mt-9  py-2 rounded-xl disabled:opacity-60"
+          className="w-full bg-blue-600 text-white text-center mt-9   py-2 rounded-xl disabled:opacity-60"
         >
           {isLoading ? "Please wait..." : "Start 14 Days Trial"}
         </button>
       ) : (
         <Link
           href={redirectUrl}
-          className="w-full bg-blue-600 text-white text-center py-2 rounded block "
+          className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded block "
         >
-          Sign up to Start Trial
+          Start 14 Days Trial
         </Link>
       )}
      </div>
