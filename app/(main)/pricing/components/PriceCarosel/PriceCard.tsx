@@ -1,11 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { BsCurrencyDollar } from "react-icons/bs";
-import DiamondIcon from "@/components/shared/DiamondCheckIcon";
+import Image from "next/image";
 import Link from "next/link";
-import { useAppSelector } from "@/redux/hooks";
+import { BsCurrencyDollar } from "react-icons/bs";
+import { toast } from "sonner";
+import DiamondIcon from "@/components/shared/DiamondCheckIcon";
 import { useCreateTrileMutation } from "@/redux/features/payment/paymentApi";
+import { useAppSelector } from "@/redux/hooks";
 
 export type FeatureType = "check" | "minus";
 
@@ -52,40 +54,48 @@ export default function PriceCard({
 
 
       if (response.success) {
-        toast.success(
-          toast.success("Trial started successfully ")
-        );
-        router.push("/");
-        return;
-      }
+      toast.success("Trial started successfully");
 
-      toast.warning("You need to subscribe to continue !");
+      setTimeout(() => {
+        router.push("/");
+      }, 500);
+
+      return;
+    }
+
+        toast.warning("You need to subscribe to continue");
+
+    setTimeout(() => {
       router.push("/subscribe");
+    }, 800);
 
       // if (response.redirectUrl) {
       //   router.push(response.redirectUrl);
       // } else {   
       //   router.push("/subscribe");
       // }
-    } catch (error) {
-      console.error("Create trial failed ", error);
-      toast.error("Something went wrong. Please subscribe.");
+    } catch (error: any) {
+    console.error("Create trial failed", error);
+
+    toast.error(
+      error?.data?.message || "Something went wrong. Please subscribe."
+    );
+
+    setTimeout(() => {
       router.push("/");
-    }
+    }, 800);
+  }
   };
 
   const redirectUrl = !token ? "/signup" : "/subscribe";
 
   return (
-    <div
-      className={`relative px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6  ${glow ? " shadow-xl" : ""
-        }`}
-
-    >
+    <div className={`relative px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6 ${glow ? "shadow-xl" : ""}`}>
       <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-3 -right-5 transform opacity-30 z-0" />
       {/* Header */}
      <div className="relative z-10">
        <div className="text-center">
+      
 
         <h2 className="text-sm text-gray-600">{title}</h2>
         <div className="flex justify-center items-center gap-1">
@@ -434,9 +444,9 @@ export default function PriceCard({
 // import SiteButton from "@/components/shared/SiteButton";
 // import DiamondIcon from "@/components/shared/DiamondCheckIcon";
 // import Link from "next/link";
-import { Toaster } from '@/components/ui/sonner';
-import { toast } from "sonner";
-import Image from "next/image";
+// import { Toaster } from '@/components/ui/sonner';
+// import { toast } from "sonner";
+// import Image from "next/image";
 
 // export type FeatureType = "check" | "minus";
 
