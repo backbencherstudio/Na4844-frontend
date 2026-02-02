@@ -91,7 +91,7 @@ export default function PriceCard({
 
   return (
     <div className={`relative px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6 ${glow ? "shadow-xl" : ""}`}>
-      <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-3 -right-5 transform opacity-30 z-0" />
+      <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-5 -right-7 transform opacity-30 z-0" />
       {/* Header */}
      <div className="relative z-10">
        <div className="text-center">
