@@ -22,6 +22,7 @@ const priceData: {
   title: string;
   price: number;
   glow: boolean;
+  isPopular?: boolean; // ✅ FIX
   packageType: string;
   monthlypakage: string;
   desc: string;
@@ -56,6 +57,7 @@ const priceData: {
     monthlypakage: "$629 Monthly",
 
     glow: true,
+    isPopular: true, // ✅ ONLY HERE
     features: [
       { text: "Ipsum eu mauris in ut massa", type: "check" },
       { text: "At id vel sit aliquet venenatis", type: "check" },
@@ -77,6 +79,7 @@ const priceData: {
     monthlypakage: "$629 Monthly",
 
     glow: false,
+ 
     features: [
       { text: "Morbi diam eros scelerisque", type: "check" },
       { text: "Urna facilisis mattis mi nulla", type: "check" },
@@ -94,7 +97,7 @@ const priceData: {
 const PriceCarosel = ({ discountMultiplier = 1 }: PriceCaroselProps) => {
   const discountedPriceData = priceData.map((card) => ({
     ...card,
-    price: Math.round(card.price * discountMultiplier),
+    price: Math.round(card.price / discountMultiplier),
   }));
 
   return (

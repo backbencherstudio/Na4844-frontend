@@ -25,6 +25,7 @@ interface PriceCardProps {
   desc?: string;
   packageType?: string;
   monthlyPakage?: string;
+  isPopular?: boolean; // ✅ FIX
 }
 
 export default function PriceCard({
@@ -35,6 +36,7 @@ export default function PriceCard({
   monthlyPakage,
   features,
   glow = false,
+  isPopular = false, // ✅ DEFAULT FALSE
 }: PriceCardProps) {
   const token = useAppSelector((state) => state.auth.token);
 
@@ -54,20 +56,20 @@ export default function PriceCard({
 
 
       if (response.success) {
-      toast.success("Trial started successfully");
+        toast.success("Trial started successfully");
+
+        setTimeout(() => {
+          router.push("/");
+        }, 500);
+
+        return;
+      }
+
+      toast.warning("You need to subscribe to continue");
 
       setTimeout(() => {
-        router.push("/");
-      }, 500);
-
-      return;
-    }
-
-        toast.warning("You need to subscribe to continue");
-
-    setTimeout(() => {
-      router.push("/subscribe");
-    }, 800);
+        router.push("/subscribe");
+      }, 800);
 
       // if (response.redirectUrl) {
       //   router.push(response.redirectUrl);
@@ -75,65 +77,75 @@ export default function PriceCard({
       //   router.push("/subscribe");
       // }
     } catch (error: any) {
-    console.error("Create trial failed", error);
+      console.error("Create trial failed", error);
 
-    toast.error(
-      error?.data?.message || "Something went wrong. Please subscribe."
-    );
+      toast.error(
+        error?.data?.message || "Something went wrong. Please subscribe."
+      );
 
-    setTimeout(() => {
-      router.push("/");
-    }, 800);
-  }
+      setTimeout(() => {
+        router.push("/");
+      }, 800);
+    }
   };
 
   const redirectUrl = !token ? "/signup" : "/subscribe";
 
   return (
-    <div className={`relative px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6 ${glow ? "shadow-xl" : ""}`}>
+    <div className={`relative overflow-hidden px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6 ${glow ? "shadow-xl" : ""}`}>
       <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-5 -right-7 transform opacity-30 z-0" />
       {/* Header */}
-     <div className="relative z-10">
-       <div className="text-center">
-      
+      <div className="relative z-10">
+        <div className="text-center">
 
-        <h2 className="text-sm text-gray-600">{title}</h2>
-        <div className="flex justify-center items-center gap-1">
-          <BsCurrencyDollar />
-          <span className="text-5xl font-bold">{price}</span>
+          {isPopular && (
+            <div
+              className="absolute rotate-45 translate-x-12  -right-20 origin-center bg-blue-500 text-white text-xs font-semibold w-[280px] py-1 shadow-lg z-20"
+            // style={{
+            //   clipPath: "polygon(13% 75%, 88% 74%, 100% 100%, 0% 100%)",
+            // }}
+            >
+              MOST POPULAR
+            </div>
+          )}
+
+          <h2 className="text-sm text-gray-600">{title}</h2>
+          <div className="flex justify-center items-center gap-1">
+            <BsCurrencyDollar />
+            <p className="text-5xl font-bold">{price} <span className="text-sm">15%</span></p>
+          </div>
+          <p className="text-sm text-gray-500">{desc}</p>
+          <p className="text-xs">{monthlyPakage}</p>
         </div>
-        <p className="text-sm text-gray-500">{desc}</p>
-        <p className="text-xs">{monthlyPakage}</p>
+
+        {/* Features */}
+        <ul className="space-y-5">
+          {features.map((f, i) => (
+            <li key={i} className="flex gap-3">
+              <DiamondIcon type={f.type} />
+              <span>{f.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        {token ? (
+          <button
+            onClick={handleSubscribe}
+            disabled={isLoading}
+            className="w-full bg-blue-600 text-white text-center mt-9   py-2 rounded-xl disabled:opacity-60"
+          >
+            {isLoading ? "Please wait..." : "Start 14 Days Trial"}
+          </button>
+        ) : (
+          <Link
+            href={redirectUrl}
+            className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded block "
+          >
+            Start 14 Days Trial
+          </Link>
+        )}
       </div>
-
-      {/* Features */}
-      <ul className="space-y-5">
-        {features.map((f, i) => (
-          <li key={i} className="flex gap-3">
-            <DiamondIcon type={f.type} />
-            <span>{f.text}</span>
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA */}
-      {token ? (
-        <button
-          onClick={handleSubscribe}
-          disabled={isLoading}
-          className="w-full bg-blue-600 text-white text-center mt-9   py-2 rounded-xl disabled:opacity-60"
-        >
-          {isLoading ? "Please wait..." : "Start 14 Days Trial"}
-        </button>
-      ) : (
-        <Link
-          href={redirectUrl}
-          className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded block "
-        >
-          Start 14 Days Trial
-        </Link>
-      )}
-     </div>
     </div>
   );
 }
@@ -186,7 +198,7 @@ export default function PriceCard({
 //   const [createTrial, { isLoading }] = useCreateTrileMutation();
 
 //   const router = useRouter();
-//   const handleSubscribe = async () => {   
+//   const handleSubscribe = async () => {
 //     console.log("Subscribe button clicked");
 
 //     console.log("plan and interval", title, packageType);
@@ -298,7 +310,7 @@ export default function PriceCard({
 //               Sign up to Start Trial
 
 //             </Link>
-//             ) 
+//             )
 //           }
 
 //           </>
