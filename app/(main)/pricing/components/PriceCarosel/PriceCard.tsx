@@ -77,7 +77,7 @@ export default function PriceCard({
   <BsCurrencyDollar />
   <p className="text-5xl font-bold">{price}</p>
   
-  {(title === "GROWTH" || title === "PLUS") && discount && (
+    {(title === "GROWTH" || title === "PLUS") && discount && packageType === "MONTHLY" && (
     <div className=" px-2 py-1 rounded text-sm inline-block ml-2 font-bold">
       15% 
     </div>
