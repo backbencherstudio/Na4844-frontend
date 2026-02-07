@@ -1,40 +1,36 @@
-/** @format */
-
 "use client";
 
 import PriceCard, { FeatureType } from "./PriceCard";
-
-import "swiper/css";
-import "swiper/css/free-mode";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-import { useRef } from "react";
-import type { Swiper as SwiperType } from "swiper";
-import ComparePlans from "../Editing/ComparePlans/ComparePlans";
 import Image from "next/image";
 
 interface PriceCaroselProps {
-  discountMultiplier?: number;
+  planType: "monthly" | "semiannual" | "annual";
 }
 
-const priceData: {
+interface PriceDataType {
   id: number;
   title: string;
-  price: number;
-  glow: boolean;
-  isPopular?: boolean; // ✅ FIX
-  packageType: string;
-  monthlypakage: string;
+  prices: {
+    monthly: number;
+    semiannual: number;
+    annual: number;
+  };
   desc: string;
+  packageType: string;
+  monthlyPakage: string;
+  glow: boolean;
+  isPopular?: boolean;
   features: { text: string; type: FeatureType }[];
-}[] = [
+}
+
+const priceData: PriceDataType[] = [
   {
     id: 1,
     title: "CORE",
-    price: 409,
+    prices: { monthly: 409, semiannual: 327, annual: 265 },
     desc: "$65 Per video",
     packageType: "MONTHLY",
-    monthlypakage: "$629 Monthly",
+    monthlyPakage: "$629 Monthly",
     glow: false,
     features: [
       { text: "Parturient sed nunc neque", type: "minus" },
@@ -51,13 +47,12 @@ const priceData: {
   {
     id: 2,
     title: "GROWTH",
-    price: 582,
+    prices: { monthly: 582, semiannual: 465, annual: 378 },
     desc: "Per video",
     packageType: "MONTHLY",
-    monthlypakage: "$629 Monthly",
-
+    monthlyPakage: "$629 Monthly",
     glow: true,
-    isPopular: true, // ✅ ONLY HERE
+    isPopular: true,
     features: [
       { text: "Ipsum eu mauris in ut massa", type: "check" },
       { text: "At id vel sit aliquet venenatis", type: "check" },
@@ -73,13 +68,11 @@ const priceData: {
   {
     id: 3,
     title: "PLUS",
-    price: 820,
+    prices: { monthly: 820, semiannual: 656, annual: 533 },
     desc: "Per video",
     packageType: "MONTHLY",
-    monthlypakage: "$629 Monthly",
-
+    monthlyPakage: "$629 Monthly",
     glow: false,
- 
     features: [
       { text: "Morbi diam eros scelerisque", type: "check" },
       { text: "Urna facilisis mattis mi nulla", type: "check" },
@@ -94,58 +87,19 @@ const priceData: {
   },
 ];
 
-const PriceCarosel = ({ discountMultiplier = 1 }: PriceCaroselProps) => {
+const PriceCarosel = ({ planType }: PriceCaroselProps) => {
   const discountedPriceData = priceData.map((card) => ({
     ...card,
-    price: Math.round(card.price / discountMultiplier),
+    price: card.prices[planType],
+    discount: planType !== "monthly",
   }));
 
   return (
-    <div className='relative py-0 container '>
-      <div className='w-full'>
-        <div className='w-full'>
-          <div className='mx-auto w-full px-2.5 md:px-0 '>
-            <div className=''>
-              {/* <Swiper
-                onSwiper={(swiper) => (sliderRef.current = swiper)}
-                modules={[FreeMode]}
-                freeMode={true}
-                grabCursor={true}
-                spaceBetween={20}
-                slidesPerView={1}
-                breakpoints={{
-                  768: {
-                    slidesPerView: 1.5,
-                    centeredSlides: true,
-                    spaceBetween: 10,
-                  },
-                }}
-                centeredSlides={true}
-                className='w-full py-8'>
-                {discountedPriceData.map((card, i) => (
-                  <SwiperSlide key={i}>
-                    <div
-                      ref={(el) => {
-                        cardRefs.current[i] = el;
-                      }}
-                      className='flex justify-center'>
-                      <PriceCard {...card} />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper> */}
-            </div>
-
-            <div className='container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-8 mb-20'>
-              {discountedPriceData.map((card, i) => (
-                <PriceCard key={i} {...card} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        {/* <div className='bg-gradient-to-b from-[#e4e8f5] to-[#fdffff] h-10 block lg:hidden'></div> */}
+    <div className='relative py-0 container'>
+      <div className='container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-8 mb-20'>
+        {discountedPriceData.map((card) => (
+          <PriceCard key={card.id} {...card} />
+        ))}
       </div>
     </div>
   );

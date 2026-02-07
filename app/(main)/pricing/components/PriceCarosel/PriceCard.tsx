@@ -19,13 +19,14 @@ interface Feature {
 interface PriceCardProps {
   id: number;
   title: string;
-  price?: number;
+  price: number;
   features: Feature[];
   glow?: boolean;
   desc?: string;
   packageType?: string;
   monthlyPakage?: string;
-  isPopular?: boolean; // ✅ FIX
+  isPopular?: boolean;
+  discount?: boolean;
 }
 
 export default function PriceCard({
@@ -36,56 +37,26 @@ export default function PriceCard({
   monthlyPakage,
   features,
   glow = false,
-  isPopular = false, // ✅ DEFAULT FALSE
+  isPopular = false,
+  discount = false,
 }: PriceCardProps) {
   const token = useAppSelector((state) => state.auth.token);
-
   const [createTrial, { isLoading }] = useCreateTrileMutation();
   const router = useRouter();
 
-
-
   const handleSubscribe = async () => {
     try {
-      const response = await createTrial({
-        plan: title,
-        interval: packageType,
-      }).unwrap();
-
-      console.log("API RESPONSE 👉", response);
-
-
+      const response = await createTrial({ plan: title, interval: packageType }).unwrap();
       if (response.success) {
         toast.success("Trial started successfully");
-
-        setTimeout(() => {
-          router.push("/");
-        }, 500);
-
+        setTimeout(() => router.push("/"), 500);
         return;
       }
-
       toast.warning("You need to subscribe to continue");
-
-      setTimeout(() => {
-        router.push("/subscribe");
-      }, 800);
-
-      // if (response.redirectUrl) {
-      //   router.push(response.redirectUrl);
-      // } else {   
-      //   router.push("/subscribe");
-      // }
+      setTimeout(() => router.push("/subscribe"), 800);
     } catch (error: any) {
-      console.error("Create trial failed", error);
-
-      toast.error(
-        error?.data?.message || "Something went wrong. Please subscribe."
-      );
-
-      setTimeout(() => {
-        router.push("/");
-      }, 800);
+      toast.error(error?.data?.message || "Something went wrong. Please subscribe.");
+      setTimeout(() => router.push("/"), 800);
     }
   };
 
@@ -94,32 +65,27 @@ export default function PriceCard({
   return (
     <div className={`relative overflow-hidden px-10 py-8 border rounded-lg bg-white/40 flex flex-col gap-6 ${glow ? "shadow-xl" : ""}`}>
       <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-5 -right-7 transform opacity-30 z-0" />
-      {/* Header */}
-      <div className="relative z-10">
-        <div className="text-center">
+      <div className="relative z-10 text-center">
+        {isPopular && (
+          <div className="absolute rotate-45 translate-x-12 -right-20 origin-center bg-blue-500 text-white text-xs font-semibold w-[280px] py-1 shadow-lg z-20">
+            MOST POPULAR
+          </div>
+        )}
 
-          {isPopular && (
-            <div
-              className="absolute rotate-45 translate-x-12  -right-20 origin-center bg-blue-500 text-white text-xs font-semibold w-[280px] py-1 shadow-lg z-20"
-            // style={{
-            //   clipPath: "polygon(13% 75%, 88% 74%, 100% 100%, 0% 100%)",
-            // }}
-            >
-              MOST POPULAR
+        <h2 className="text-sm text-gray-600">{title}</h2>
+        <div className="flex justify-center items-center gap-1">
+          <BsCurrencyDollar />
+          <p className="text-5xl font-bold">{price}</p>
+          {discount && (
+            <div className=" font-bold px-2 py-1 rounded text-xs inline-block ml-2">
+              {Math.round((1 - price / (price / 0.85)) * 100)}% 
             </div>
           )}
-
-          <h2 className="text-sm text-gray-600">{title}</h2>
-          <div className="flex justify-center items-center gap-1">
-            <BsCurrencyDollar />
-            <p className="text-5xl font-bold">{price} <span className="text-sm">15%</span></p>
-          </div>
-          <p className="text-sm text-gray-500">{desc}</p>
-          <p className="text-xs">{monthlyPakage}</p>
         </div>
+        <p className="text-sm text-gray-500">{desc}</p>
+        <p className="text-xs">{monthlyPakage}</p>
 
-        {/* Features */}
-        <ul className="space-y-5">
+        <ul className="space-y-5 mt-5">
           {features.map((f, i) => (
             <li key={i} className="flex gap-3">
               <DiamondIcon type={f.type} />
@@ -128,20 +94,16 @@ export default function PriceCard({
           ))}
         </ul>
 
-        {/* CTA */}
         {token ? (
           <button
             onClick={handleSubscribe}
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white text-center mt-9   py-2 rounded-xl disabled:opacity-60"
+            className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded-xl disabled:opacity-60"
           >
             {isLoading ? "Please wait..." : "Start 14 Days Trial"}
           </button>
         ) : (
-          <Link
-            href={redirectUrl}
-            className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded block "
-          >
+          <Link href={redirectUrl} className="w-full bg-blue-600 text-white text-center mt-9 py-2 rounded block">
             Start 14 Days Trial
           </Link>
         )}
@@ -149,7 +111,6 @@ export default function PriceCard({
     </div>
   );
 }
-
 
 
 // "use client";
