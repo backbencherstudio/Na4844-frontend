@@ -54,19 +54,18 @@ export default function Navbar() {
             <Link href='/portfolio'>
               <p>Portfolio</p>
             </Link>
+             <Link href='/signup'>
+              {" "}
+              <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+               Sign In
+              </SiteButton>
+            </Link>
             <div className='w-full sm:w-fit shadow-2xl'>
               <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
                 Start for Free
               </SiteButton>
             </div>
-            <Link href='/signup'>
-              {" "}
-              <button
-                className='rounded-xl bg-white/80 px-6 py-2.5 text-black cursor-pointer
-            hover:bg-white/90 '>
-                Sign In
-              </button>
-            </Link>
+           
           </div>
 
           {/* Mobile Menu Icon */}
