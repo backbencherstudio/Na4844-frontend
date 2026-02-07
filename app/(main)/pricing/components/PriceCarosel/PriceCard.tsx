@@ -83,7 +83,7 @@ export default function PriceCard({
           )}
         </div>
         <p className="text-sm text-gray-500">{desc}</p>
-        <p className="text-xs">{monthlyPakage}</p>
+        {/* <p className="text-xs">{monthlyPakage}</p> */}
 
         <ul className="space-y-5 mt-5">
           {features.map((f, i) => (

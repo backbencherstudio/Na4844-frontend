@@ -27,7 +27,7 @@ const priceData: PriceDataType[] = [
   {
     id: 1,
     title: "CORE",
-    prices: { monthly: 409, semiannual: 327, annual: 265 },
+    prices: { monthly: 409, semiannual: 627, annual: 865 },
     desc: "$65 Per video",
     packageType: "MONTHLY",
     monthlyPakage: "$629 Monthly",
@@ -47,7 +47,7 @@ const priceData: PriceDataType[] = [
   {
     id: 2,
     title: "GROWTH",
-    prices: { monthly: 582, semiannual: 465, annual: 378 },
+    prices: { monthly: 582, semiannual: 765, annual: 978 },
     desc: "Per video",
     packageType: "MONTHLY",
     monthlyPakage: "$629 Monthly",
@@ -68,7 +68,7 @@ const priceData: PriceDataType[] = [
   {
     id: 3,
     title: "PLUS",
-    prices: { monthly: 820, semiannual: 656, annual: 533 },
+    prices: { monthly: 820, semiannual: 956, annual:980 },
     desc: "Per video",
     packageType: "MONTHLY",
     monthlyPakage: "$629 Monthly",
