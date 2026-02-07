@@ -73,15 +73,17 @@ export default function PriceCard({
         )}
 
         <h2 className="text-sm text-gray-600">{title}</h2>
-        <div className="flex justify-center items-center gap-1">
-          <BsCurrencyDollar />
-          <p className="text-5xl font-bold">{price}</p>
-          {discount && (
-            <div className=" font-bold px-2 py-1 rounded text-xs inline-block ml-2">
-              {Math.round((1 - price / (price / 0.85)) * 100)}% 
-            </div>
-          )}
-        </div>
+   <div className="flex justify-center items-center gap-1">
+  <BsCurrencyDollar />
+  <p className="text-5xl font-bold">{price}</p>
+  
+  {(title === "GROWTH" || title === "PLUS") && discount && (
+    <div className=" px-2 py-1 rounded text-sm inline-block ml-2 font-bold">
+      15% 
+    </div>
+  )}
+</div>
+
         <p className="text-sm text-gray-500">{desc}</p>
         {/* <p className="text-xs">{monthlyPakage}</p> */}
 
