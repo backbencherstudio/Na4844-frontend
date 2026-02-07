@@ -88,11 +88,13 @@ const priceData: PriceDataType[] = [
 ];
 
 const PriceCarosel = ({ planType }: PriceCaroselProps) => {
-  const discountedPriceData = priceData.map((card) => ({
-    ...card,
-    price: card.prices[planType],
-    discount: planType !== "monthly",
-  }));
+const discountedPriceData = priceData.map((card) => ({
+  ...card,
+  price: card.prices[planType],
+  discount: card.title === "GROWTH" || card.title === "PLUS",
+
+}));
+
 
   return (
     <div className='relative py-0 container'>
