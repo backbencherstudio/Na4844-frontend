@@ -14,7 +14,7 @@ interface LoginResponse {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // 🔐 LOGIN
+    //  LOGIN
     login: builder.mutation<LoginResponse, { email: string; password: string }>({
       query: (body) => ({
         url: "/auth/login",
@@ -34,7 +34,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
-    // 📝 SIGNUP
+    //  SIGNUP
     signup: builder.mutation({
       query: (body) => ({
         url: "/auth/register",
@@ -43,7 +43,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // 🔓 LOGOUT
+    //  LOGOUT
     logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
