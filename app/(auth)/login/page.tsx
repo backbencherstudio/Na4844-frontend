@@ -30,9 +30,9 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await login(data).unwrap();
-      console.log("LOGIN SUCCESS 👉", result);
+      console.log("LOGIN SUCCESS ", result);
 
-      // ✅ redirect after login
+      // redirect after login
       router.push("/pricing");
     } catch (err: unknown) {
       let message = "Email or password is incorrect";
@@ -58,10 +58,10 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen relative flex items-center justify-center px-4">
-      {/* 🌈 Background Gradient */}
+      {/*  Background Gradient */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200" />
 
-      {/* 🧾 Login Card */}
+      {/*  Login Card */}
       <div className="relative z-10 w-full max-w-md bg-white rounded-xl shadow-xl p-6">
         <h1 className="text-2xl font-bold">Welcome Back</h1>
         <p className="text-sm text-gray-600">
@@ -79,7 +79,8 @@ export default function LoginPage() {
             />
             {errors.email && (
               <p className="text-red-500 text-sm">
-                {errors.email.message}
+                {/* {errors.email.message} */}
+                <p>Enter your correct email</p>
               </p>
             )}
           </div>
@@ -102,7 +103,8 @@ export default function LoginPage() {
             </div>
             {errors.password && (
               <p className="text-red-500 text-sm">
-                {errors.password.message}
+                {/* {errors.password.message} */}
+                <p>Enter your correct Password</p>
               </p>
             )}
           </div>

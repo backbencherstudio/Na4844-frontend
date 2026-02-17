@@ -26,7 +26,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  // ✅ RTK Query hook
+  //  RTK Query hook
   const [signup, { isLoading }] = useSignupMutation();
 
   const onSubmit = async (data: SignupFormData) => {
