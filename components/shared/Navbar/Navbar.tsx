@@ -43,8 +43,8 @@ export default function Navbar() {
             <p className='text-xl font-medium'>Flow Edit</p>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className='hidden lg:flex items-center gap-12 text-base font-medium '>
+
+          <div className="hidden lg:flex items-center gap-12 text-base font-medium">
             <Link href='/'>
               <p>Home</p>
             </Link>
@@ -54,6 +54,10 @@ export default function Navbar() {
             <Link href='/portfolio'>
               <p>Portfolio</p>
             </Link>
+</div>
+          {/* Desktop Menu */}
+          <div className='hidden lg:flex items-center gap-12 text-base font-medium '>
+          
              <Link href='/signup'>
               {" "}
               <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
