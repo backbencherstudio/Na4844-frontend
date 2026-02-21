@@ -6,6 +6,7 @@ import Cell from "./Cell";
 import { useAppSelector } from "@/redux/hooks";
 import { useGetPlansQuery } from "@/redux/features/plansApi";
 import ComparePlansModal from "../UpdateComparism";
+import Image from "next/image";
 
 export interface PlanType {
   id: string;
@@ -54,6 +55,12 @@ export default function ComparePlans() {
             "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 30.29%, #57b2fc 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",
         }}
       />
+          <Image
+               src='/images/compareblur.png'
+              alt='faq'
+             height={400}
+              width={500}
+            className='absolute w-full h-[700px] '></Image>
       <div className="relative z-20">
         <h2 className="text-center text-4xl font-semibold mb-16">
           Compare Plans

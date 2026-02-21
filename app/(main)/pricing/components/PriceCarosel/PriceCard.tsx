@@ -50,7 +50,7 @@ export default function PriceCard({
       }).unwrap();
 
       if (response.success) {
-        toast.success("Trial started successfully");
+        // toast.success("Trial started successfully");
         setTimeout(() => router.push("/"), 500);
         return;
       }
@@ -58,9 +58,15 @@ export default function PriceCard({
       toast.warning("You need to subscribe to continue");
       setTimeout(() => router.push("/subscribe"), 800);
     } catch (error: any) {
-      toast.error(
-        error?.data?.message || "Something went wrong. Please subscribe."
-      );
+      const message =
+        typeof error?.data?.message === "string"
+          ? error.data.message
+          : error?.data?.message?.message ||
+          error?.message ||
+          "Something went wrong. Please subscribe.";
+
+      toast.error(message);
+
       setTimeout(() => router.push("/"), 800);
     }
   };
