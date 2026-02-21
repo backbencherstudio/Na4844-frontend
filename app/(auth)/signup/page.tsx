@@ -34,20 +34,36 @@ export default function SignupPage() {
 
     try {
       await signup(data).unwrap();
+
       alert("Registration successful!");
       reset();
-      // router.push("/login");
     } catch (err: unknown) {
       let message = "Registration failed";
 
       if (typeof err === "object" && err !== null && "status" in err) {
         const fetchError = err as FetchBaseQueryError;
-        message =
-          (fetchError.data as { message?: string })?.message ??
-          "Unable to register";
-      } else {
-        const serializedError = err as SerializedError;
-        message = serializedError.message ?? message;
+
+        const status = fetchError.status;
+
+        if (
+          fetchError.data &&
+          typeof fetchError.data === "object" &&
+          "message" in fetchError.data
+        ) {
+          const backendMessage = (fetchError.data as { message?: string }).message;
+          message = backendMessage ?? message;
+        }
+
+       
+        if (status === 400 || status === 409) {
+          setApiError(message);
+
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 1200);
+
+          return;
+        }
       }
 
       setApiError(message);
