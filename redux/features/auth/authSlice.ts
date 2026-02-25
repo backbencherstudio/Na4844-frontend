@@ -30,7 +30,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action: PayloadAction<SetCredentialsPayload>) => {
-      const { token, role, isTrial, trialStartDate, subscription } = action.payload;
+      const { token, role, isTrial, trialStartDate, isSubscribed } = action.payload;
 
       if (token !== undefined) {
         state.token = token;
@@ -52,8 +52,9 @@ const authSlice = createSlice({
         Cookies.set("trialStartDate", trialStartDate);
       }
 
-      if (subscription !== undefined) {
-        state.subscription = subscription;
+        if (isSubscribed !== undefined) {
+        state.isSubscribed = isSubscribed;
+        Cookies.set("isTrial", isSubscribed.toString());
       }
     },
 
