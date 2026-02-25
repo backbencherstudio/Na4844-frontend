@@ -37,12 +37,13 @@ export default function PriceCard({
   isPopular = false,
   discount = false,
 }: PriceCardProps) {
-  const { token, isTrial, role } = useAppSelector((state) => state.auth);
+  const { token, isTrial, role, isSubscribed } = useAppSelector((state) => state.auth);
   const [createTrial, { isLoading }] = useCreateTrileMutation();
   const router = useRouter();
-  console.log(isTrial, "data")
-  console.log(token,"dsfsdfsdf")
-  console.log(role,"dfdfd")
+
+  console.log('====================================');
+  console.log(isSubscribed, "check");
+  console.log('====================================');
 
   const handleSubscribe = async () => {
     if (!token) {
@@ -84,18 +85,21 @@ export default function PriceCard({
       toast.error(message);
     }
   };
+
+
+
   const renderButton = () => {
-    if (!token) {
-      // User not logged in → redirect to signup
-      return (
-        <button
-          onClick={() => router.push("/signup")}
-          className="w-full bg-gray-600 text-white mt-9 py-2 rounded-xl"
-        >
-          Sign Up
-        </button>
-      );
-    }
+    // if (!token) {
+    //   // User not logged in → redirect to signup
+    //   return (
+    //     <button
+    //       onClick={() => router.push("/signup")}
+    //       className="w-full bg-gray-600 text-white mt-9 py-2 rounded-xl"
+    //     >
+    //       Sign Up
+    //     </button>
+    //   );
+    // }
 
     if (!isTrial) {
       // User can start a trial → call backend
@@ -110,7 +114,7 @@ export default function PriceCard({
       );
     }
 
-    // User already has a trial → show backend message via toast
+    if (!isSubscribed) {
     return (
       <button
         onClick={handleSubscribe}
@@ -120,6 +124,17 @@ export default function PriceCard({
         {isLoading ? "Please wait..." : "Subscribe Now"}
       </button>
     );
+
+    }
+    // User already has a trial → show backend message via toast
+       return (
+        <button
+          onClick={() => router.push("https://flow-edit-one.vercel.app/dashboard")}
+          className="w-full bg-blue-600 text-white mt-9 py-2 rounded-xl disabled:opacity-60 cursor-pointer"
+        >
+          Subscribed
+        </button>
+      );
   };
 
   return (

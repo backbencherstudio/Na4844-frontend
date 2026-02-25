@@ -14,6 +14,9 @@ import Cookies from "js-cookie";
 import { FormEvent, useMemo, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { useCreatePaymentMutation } from "@/redux/features/payment/paymentApi";
+import { toast } from "sonner";
+
 type Plan = "CORE" | "GROWTH" | "PLUS";
 type Interval = "MONTHLY" | "SEMIANNUAL" | "ANNUAL";
 
@@ -31,6 +34,7 @@ const router = useRouter();
   const [postalCode, setPostalCode] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+   const [createPayment, { isLoading }] = useCreatePaymentMutation();
 
   const fetchUrl = useMemo(
     () => `${process.env.NEXT_PUBLIC_BACKEND_BASE}/payment/stripe/subscription`,
@@ -73,6 +77,10 @@ const router = useRouter();
         return;
       }
 
+      console.log('====================================');
+      console.log(data);
+      console.log('====================================');
+
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         data.client_secret,
         {
@@ -84,6 +92,9 @@ const router = useRouter();
           },
         },
       );
+      console.log('====================================');
+      console.log(paymentIntent);
+      console.log('====================================');
 
       if (error) {
         setMessage(error.message ?? "Payment failed");
@@ -91,13 +102,21 @@ const router = useRouter();
       }
 
       if (paymentIntent?.status === "succeeded") {
-        setMessage("✅ Payment successful! Subscription active.");
+        setMessage(" Payment successful! Subscription active.");
+      const response = await createPayment({
+        plan: plan,
+        interval: interval.toUpperCase(),
+      }).unwrap();
 
+      console.log('====================================');
+      console.log("response =======",response);
+      console.log('====================================');
         
+        toast.success(response.message);
         router.push("/pricing"); 
       }
       
-    } catch {
+    } catch (error: any) {
       setMessage("Network error occurred");
     } finally {
       setLoading(false);

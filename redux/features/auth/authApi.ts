@@ -13,7 +13,9 @@ interface LoginResponse {
 }
 
 export const authApi = baseApi.injectEndpoints({
+  
   endpoints: (builder) => ({
+    
     //  LOGIN
     login: builder.mutation<LoginResponse, { email: string; password: string }>({
       query: (body) => ({
@@ -21,6 +23,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
+       invalidatesTags: ["Auth"],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
 
@@ -48,6 +51,7 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
+        
       }),
     }),
   }),

@@ -5,6 +5,7 @@ interface AuthState {
   token: string | null;
   role: "USER" | "ADMIN" | null;
   isTrial: boolean;
+  isSubscribed?: boolean;
   trialStartDate?: string;
   subscription?: any;
 }
@@ -13,14 +14,16 @@ interface SetCredentialsPayload {
   token?: string | null;
   role?: "USER" | "ADMIN" | null;
   isTrial?: boolean;
+  isSubscribed?: boolean;
   trialStartDate?: string;
   subscription?: any;
 }
 
 const initialState: AuthState = {
-  token: Cookies.get("token") || null, // ✅ safe
+  token: Cookies.get("token") || null, 
   role: (Cookies.get("role") as "USER" | "ADMIN") || null,
   isTrial: Cookies.get("isTrial") === "true" || false,
+  isSubscribed: Cookies.get("isSubscribed") === "true" || false,
   trialStartDate: Cookies.get("trialStartDate") || undefined,
   subscription: undefined,
 };
@@ -54,7 +57,7 @@ const authSlice = createSlice({
 
         if (isSubscribed !== undefined) {
         state.isSubscribed = isSubscribed;
-        Cookies.set("isTrial", isSubscribed.toString());
+        Cookies.set("isSubscribed", isSubscribed.toString());
       }
     },
 
@@ -62,12 +65,14 @@ const authSlice = createSlice({
       state.token = null;
       state.role = null;
       state.isTrial = false;
+      state.isSubscribed = false;
       state.trialStartDate = undefined;
       state.subscription = undefined;
 
       Cookies.remove("token");
       Cookies.remove("role");
       Cookies.remove("isTrial");
+      Cookies.remove("isSubscribed");
       Cookies.remove("trialStartDate");
     },
   },

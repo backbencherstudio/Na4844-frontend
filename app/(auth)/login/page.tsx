@@ -30,10 +30,13 @@ export default function LoginPage() {
 
   const [login, { isLoading }] = useLoginMutation();
 
+
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await login(data).unwrap();
-      console.log("LOGIN SUCCESS:", result);
+      console.log('====================================');
+      console.log(result);
+      console.log('====================================');
 
       // Ensure role is either USER or ADMIN
       const role = result.type === "ADMIN" ? "ADMIN" : "USER";
@@ -44,12 +47,13 @@ export default function LoginPage() {
           token: result.authorization?.access_token ?? null,
           role,
           isTrial: (result as any).isTrial ?? false,
+          isSubscribed: (result as any).isSubscribed ?? false,
         })
       );
 
       toast.success("Login successful");
 
-      // 🔥 Redirect based on role
+      // Redirect based on role
       setTimeout(() => {
         if (role === "ADMIN") {
           router.push("/pricing"); // Admin dashboard
