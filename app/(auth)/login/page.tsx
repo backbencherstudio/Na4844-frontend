@@ -44,6 +44,7 @@ export default function LoginPage() {
           token: result.authorization?.access_token ?? null,
           role,
           isTrial: (result as any).isTrial ?? false,
+        
         })
       );
 

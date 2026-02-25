@@ -50,7 +50,7 @@ export default function PriceCard({
       return;
     }
 
-    if (isTrial) {
+    if (!isTrial) {
       router.push("/subscribe");
       return;
     }
