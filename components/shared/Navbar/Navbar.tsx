@@ -27,10 +27,9 @@ export default function Navbar() {
   const handleLogout = () => {
     console.log("Logout");
 
-    // remove cookie
     Cookies.remove("token");
 
-    // clear redux state
+
     dispatch(logOut());
 
     // refresh page
@@ -116,7 +115,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE FULL SCREEN MENU */}
       {/* MOBILE FULL SCREEN MENU */}
       {open && (
         <div

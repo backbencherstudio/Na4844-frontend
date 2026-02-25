@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { toast } from "sonner";
+import { useAppDispatch } from "@/redux/hooks";
+import { setCredentials } from "@/redux/features/auth/authSlice";
 
 type LoginFormData = {
   email: string;
@@ -17,6 +19,7 @@ type LoginFormData = {
 
 export default function LoginPage() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -30,13 +33,29 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await login(data).unwrap();
-      console.log("LOGIN SUCCESS ", result);
+      console.log("LOGIN SUCCESS:", result);
+
+      // Ensure role is either USER or ADMIN
+      const role = result.type === "ADMIN" ? "ADMIN" : "USER";
+
+      // Save auth state in Redux and Cookies
+      dispatch(
+        setCredentials({
+          token: result.authorization?.access_token ?? null,
+          role,
+          isTrial: (result as any).isTrial ?? false,
+        })
+      );
 
       toast.success("Login successful");
 
-      // redirect after login
+      // 🔥 Redirect based on role
       setTimeout(() => {
-        router.push("/pricing");
+        if (role === "ADMIN") {
+          router.push("/pricing"); // Admin dashboard
+        } else {
+          router.push("/pricing"); // User pricing page
+        }
       }, 800);
     } catch (err: unknown) {
       let message = "Email or password is incorrect";
@@ -49,7 +68,8 @@ export default function LoginPage() {
           typeof fetchError.data === "object" &&
           "message" in fetchError.data
         ) {
-          const backendMessage = (fetchError.data as { message: unknown }).message;
+          const backendMessage = (fetchError.data as { message: unknown })
+            .message;
 
           message =
             typeof backendMessage === "string"
@@ -58,10 +78,9 @@ export default function LoginPage() {
         }
       }
 
-      // ✅ Show toast error
       toast.error(message);
 
-      // ✅ Redirect to signup
+      // Optional: redirect to signup after failed login
       setTimeout(() => {
         router.push("/signup");
       }, 1200);
@@ -90,9 +109,7 @@ export default function LoginPage() {
               className="w-full border rounded-lg px-4 py-2"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">
-                {errors.email.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
           </div>
 
@@ -114,9 +131,7 @@ export default function LoginPage() {
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm">
-                {errors.password.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
 

@@ -58,7 +58,7 @@ if (
     setCredentials({
       token: data.access_token,
       role: state?.auth?.role,
-      user: state?.auth?.user,
+    
     })
     
   );
