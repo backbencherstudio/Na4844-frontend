@@ -4,7 +4,7 @@
     endpoints: (builder) => ({
       getMySubscription: builder.query({
         query: () => ({
-          url: "/subscription/me",
+          url: "/auth/me",
           method: "GET",
         }),
       }),

@@ -27,8 +27,8 @@ export const authApi = baseApi.injectEndpoints({
         dispatch(
           setCredentials({
             token: data.authorization.access_token,
-            role: data.type,
-            user: null,
+            role: data.type === "ADMIN" ? "ADMIN" : "USER",
+            // user: null,
           })
         );
       },

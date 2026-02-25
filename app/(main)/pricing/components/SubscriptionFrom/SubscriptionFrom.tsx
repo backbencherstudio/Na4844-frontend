@@ -13,7 +13,7 @@ import {
 import Cookies from "js-cookie";
 import { FormEvent, useMemo, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
+import { useRouter } from "next/navigation";
 type Plan = "CORE" | "GROWTH" | "PLUS";
 type Interval = "MONTHLY" | "SEMIANNUAL" | "ANNUAL";
 
@@ -25,7 +25,7 @@ interface BackendResponse {
 export default function SubscriptionForm() {
   const stripe = useStripe();
   const elements = useElements();
-
+const router = useRouter();
   const [plan, setPlan] = useState<Plan>("CORE");
   const [interval, setInterval] = useState<Interval>("MONTHLY");
   const [postalCode, setPostalCode] = useState("");
@@ -92,7 +92,11 @@ export default function SubscriptionForm() {
 
       if (paymentIntent?.status === "succeeded") {
         setMessage("✅ Payment successful! Subscription active.");
+
+        
+        router.push("/pricing"); 
       }
+      
     } catch {
       setMessage("Network error occurred");
     } finally {
