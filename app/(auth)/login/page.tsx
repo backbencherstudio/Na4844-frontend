@@ -4,12 +4,12 @@
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { toast } from "sonner";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setCredentials } from "@/redux/features/auth/authSlice";
 
 type LoginFormData = {
@@ -20,8 +20,14 @@ type LoginFormData = {
 export default function LoginPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    if (token) {
+      router.replace("/pricing");
+    }
+  }, [token, router]);
   const {
     register,
     handleSubmit,
@@ -30,10 +36,13 @@ export default function LoginPage() {
 
   const [login, { isLoading }] = useLoginMutation();
 
+
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await login(data).unwrap();
-      console.log("LOGIN SUCCESS:", result);
+      // console.log('====================================');
+      // console.log(result);
+      // console.log('====================================');
 
       // Ensure role is either USER or ADMIN
       const role = result.type === "ADMIN" ? "ADMIN" : "USER";
@@ -44,18 +53,18 @@ export default function LoginPage() {
           token: result.authorization?.access_token ?? null,
           role,
           isTrial: (result as any).isTrial ?? false,
-        
+          isSubscribed: (result as any).isSubscribed ?? false,
         })
       );
 
       toast.success("Login successful");
 
-      // 🔥 Redirect based on role
+      // Redirect based on role
       setTimeout(() => {
         if (role === "ADMIN") {
-          router.push("/pricing"); // Admin dashboard
+          router.push("/pricing"); 
         } else {
-          router.push("/pricing"); // User pricing page
+          router.push("/pricing"); 
         }
       }, 800);
     } catch (err: unknown) {

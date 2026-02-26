@@ -118,7 +118,7 @@ export default function Navbar() {
       {/* MOBILE FULL SCREEN MENU */}
       {open && (
         <div
-          className='fixed inset-0 z-40 bg-blue-400 text-white'
+          className='fixed inset-0 z-40 bg-blue-400 text-white overflow-auto'
           style={{
             backgroundImage: "url(/images/MobileaMenu.png)",
             backgroundSize: "cover",
@@ -150,18 +150,25 @@ export default function Navbar() {
             </Link>
             <hr className='w-full' />
 
-            <button
+            {/* <button
               // onClick={() => setOpen(false)}
               className='mt-6 rounded-xl bg-white text-xl font-medium px-10 py-3 text-black w-full'>
               Start for Free
-            </button>
-            <Link href='/signup' className='w-full'>
+            </button> */}
+            <Link href='/login' className='w-full'>
               <button
                 onClick={() => setOpen(false)}
                 className=' rounded-xl w-full bg-white text-xl font-medium px-6 py-2.5 text-black'>
                 Sign In
               </button>
             </Link>
+            {
+              token ? <button onClick={handleLogout} className="rounded-xl w-full bg-white text-xl font-medium px-6 py-2.5 text-black"> Logout</button> : <div className='w-full sm:w-fit shadow-2xl'>
+                {/* <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+                  Start for Free
+                </SiteButton> */}
+              </div>
+            }
           </div>
         </div>
       )}
