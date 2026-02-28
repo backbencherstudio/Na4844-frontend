@@ -49,7 +49,7 @@ export default function ComparePlans() {
   return (
     <section className="relative overflow-hidden py-10">
       <div
-        className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[800px] z-0'
+        className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[700px] z-0'
         style={{
           background:
             "linear-gradient(180deg, #FFFFFF 0%, #7FCCE9 30.29%, #57b2fc 66.53%, #D6E1EA 88.26%, #FFFFFF 100%)",

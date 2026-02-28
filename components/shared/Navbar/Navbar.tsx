@@ -73,7 +73,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className='hidden lg:flex items-center lg:gap-30 xl:gap-40 2xl:gap-96 text-base font-medium '>
+          <div className='hidden lg:flex items-center lg:gap-30 xl:gap-40 2xl:gap-70 text-base font-medium '>
 
             <div className=" lg:flex items-center gap-12 text-base font-medium">
               <Link href='/'>
