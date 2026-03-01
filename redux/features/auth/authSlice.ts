@@ -19,8 +19,17 @@ interface SetCredentialsPayload {
   subscription?: any;
 }
 
+// const initialState: AuthState = {
+//   token: Cookies.get("token") || null, 
+//   role: (Cookies.get("role") as "USER" | "ADMIN") || null,
+//   isTrial: Cookies.get("isTrial") === "true" || false,
+//   isSubscribed: Cookies.get("isSubscribed") === "true" || false,
+//   trialStartDate: Cookies.get("trialStartDate") || undefined,
+//   subscription: undefined,
+// };
+
 const initialState: AuthState = {
-  token: Cookies.get("token") || null, 
+  token: Cookies.get("token") || null,
   role: (Cookies.get("role") as "USER" | "ADMIN") || null,
   isTrial: Cookies.get("isTrial") === "true" || false,
   isSubscribed: Cookies.get("isSubscribed") === "true" || false,
