@@ -11,6 +11,18 @@ interface LoginResponse {
     refresh_token: string;
   };
 }
+interface GetMeResponse {
+  success: boolean;
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    type: "USER" | "ADMIN";
+    isTrial?: boolean;
+    isSubscribed?: boolean;
+  };
+}
+
 
 export const authApi = baseApi.injectEndpoints({
   
@@ -36,7 +48,12 @@ export const authApi = baseApi.injectEndpoints({
         );
       },
     }),
-
+    getMe: builder.query<GetMeResponse, void>({
+      query: () => ({
+        url: "/auth/me",
+        method: "GET",
+      }),
+    }),
     //  SIGNUP
     signup: builder.mutation({
       query: (body) => ({
@@ -61,6 +78,7 @@ export const {
   useLoginMutation,
   useSignupMutation,
   useLogoutMutation,
+   useGetMeQuery,
 } = authApi;
 
 

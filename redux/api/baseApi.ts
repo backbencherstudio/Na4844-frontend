@@ -58,11 +58,19 @@ if (
     setCredentials({
       token: data.access_token,
       role: state?.auth?.role,
+      isTrial: state?.auth?.isTrial,
+      isSubscribed: state?.auth?.isSubscribed,
+      trialStartDate: state?.auth?.trialStartDate,
+      subscription: state?.auth?.subscription,
     
     })
     
   );
    console.log(state?.auth?.role);
+   console.log(state?.auth?.isTrial)
+   console.log(state?.auth?.isSubscribed)
+   console.log(state?.auth?.subscription)
+
 
   result = await baseQuery(args, api, extraOptions);
 } else {

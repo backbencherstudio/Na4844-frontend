@@ -77,9 +77,7 @@ const router = useRouter();
         return;
       }
 
-      console.log('====================================');
-      console.log(data);
-      console.log('====================================');
+    
 
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         data.client_secret,
@@ -92,9 +90,9 @@ const router = useRouter();
           },
         },
       );
-      console.log('====================================');
-      console.log(paymentIntent);
-      console.log('====================================');
+      // console.log('====================================');
+      // console.log(paymentIntent);
+      // console.log('====================================');
 
       if (error) {
         setMessage(error.message ?? "Payment failed");
@@ -108,9 +106,9 @@ const router = useRouter();
         interval: interval.toUpperCase(),
       }).unwrap();
 
-      console.log('====================================');
-      console.log("response =======",response);
-      console.log('====================================');
+      // console.log('====================================');
+      // console.log("response =======",response);
+      // console.log('====================================');
         
         toast.success(response.message);
         router.push("/pricing"); 
