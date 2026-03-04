@@ -90,9 +90,7 @@ const router = useRouter();
           },
         },
       );
-      // console.log('====================================');
-      // console.log(paymentIntent);
-      // console.log('====================================');
+      
 
       if (error) {
         setMessage(error.message ?? "Payment failed");
@@ -106,16 +104,14 @@ const router = useRouter();
         interval: interval.toUpperCase(),
       }).unwrap();
 
-      // console.log('====================================');
-      // console.log("response =======",response);
-      // console.log('====================================');
+      
         
         toast.success(response.message);
         router.push("/pricing"); 
       }
       
-    } catch (error: any) {
-      setMessage("Network error occurred");
+    } catch {
+      toast.error("Failed to update plan");
     } finally {
       setLoading(false);
     }

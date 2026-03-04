@@ -9,8 +9,28 @@
         }),
          
       }),
+
+          getSubcription: builder.query({
+      query: () => ({
+        url: "/subscriptions",
+        method: "GET",
+      }),
+      providesTags: ["Plans"],
+    }),
+
+    updateSubPlan: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/subscriptions/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Plans"],
+    }),
      
     }),
   });
 
-  export const { useGetMySubscriptionQuery } = subscriptionApi;
+  export const { useGetMySubscriptionQuery,
+      useGetSubcriptionQuery,
+  useUpdateSubPlanMutation,
+  } = subscriptionApi;

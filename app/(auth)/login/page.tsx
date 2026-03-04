@@ -41,9 +41,7 @@ export default function LoginPage() {
  
     try {
       const result = await login(data).unwrap();
-      // console.log('====================================');
-      // console.log(result);
-      // console.log('====================================');
+      // console.log('===================================='); 
 
       // Ensure role is either USER or ADMIN
       const role = result.type === "ADMIN" ? "ADMIN" : "USER";

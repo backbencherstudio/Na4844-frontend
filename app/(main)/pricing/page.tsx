@@ -4,6 +4,7 @@ import { useState } from "react";
 import ComparePlans from "./components/Editing/ComparePlans/ComparePlans";
 import { PlanType } from "@/components/shared/ToggleSwitch";
 import PriceBanner from "./components/PriceCarosel/PriceBanner";
+import PricingSection from "@/app/(dashboard)/dashboard/page";
 
 const PricingPage = () => {
   const [planType, setPlanType] = useState<PlanType>("monthly");
