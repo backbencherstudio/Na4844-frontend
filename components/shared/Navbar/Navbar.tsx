@@ -67,45 +67,41 @@ export default function Navbar() {
  ${isScrolled ? "bg-white/80 backdrop-blur-md text-black shadow-md" : "bg-transparent text-white"}
 `}>
         <div className='flex items-center justify-between'>
-          <Link href='/'>
+          <Link href='/' className="min-w-[180px]">
             {" "}
             <p className='text-xl font-medium'>Flow Edit</p>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className='hidden lg:flex items-center lg:gap-30 xl:gap-40 2xl:gap-70 text-base font-medium '>
 
-            <div className=" lg:flex items-center gap-12 text-base font-medium">
-              <Link href='/'>
-                <p>Home</p>
-              </Link>
-              <Link href='/pricing'>
-                <p>Pricing</p>
-              </Link>
-              <Link href='/portfolio'>
-                <p>Portfolio</p>
-              </Link>
+          <div className=" lg:flex items-center gap-12 text-base font-medium hidden">
+            <Link href='/'>
+              <p>Home</p>
+            </Link>
+            <Link href='/pricing'>
+              <p>Pricing</p>
+            </Link>
+            <Link href='/portfolio'>
+              <p>Portfolio</p>
+            </Link>
 
-            </div>
+          </div>
 
-            <div className="flex gap-8">
-              {
-                token ? <div className="flex items-center justify-center border rounded-full w-10 h-10"><User /> </div> : <Link href='/login'>
-                  {" "}
-                  <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
-                    Sign In
-                  </SiteButton>
-                </Link>
-              }
+          <div className="lg:flex gap-8 hidden">
             {
-                token ? <button onClick={handleLogout} className="px-4  py-2 rounded-md border bg-white text-black "> Logout</button> : <div className='w-full sm:w-fit shadow-2xl'>
-                  <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
-                    Start for Free
-                  </SiteButton>
-                </div>
+              token ? <div className="flex items-center justify-center border rounded-full w-10 h-10"><User /> </div> : <Link href='/login'>
+                {" "}
+                <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+                  Sign In
+                </SiteButton>
+              </Link>
             }
-            </div>
-
+            {
+              token ? <button onClick={handleLogout} className="px-4  py-2 rounded-md border bg-white text-black "> Logout</button> : <div className='w-full sm:w-fit shadow-2xl'>
+                <SiteButton className='bg-[#B6C7F5]/30 w-full hover:bg-[#B6C7F5]/30'>
+                  Start for Free
+                </SiteButton>
+              </div>
+            }
           </div>
 
           {/* Mobile Menu Icon */}

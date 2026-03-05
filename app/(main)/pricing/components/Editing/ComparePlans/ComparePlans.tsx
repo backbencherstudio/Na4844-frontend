@@ -18,6 +18,15 @@ export interface PlanType {
   seo: number;
 }
 
+interface ApiPlan {
+  id: string;
+  type: string;
+  per_video: number;
+  unlimited_videos: boolean;
+  branding: boolean;
+  custom_thumbnail: boolean;
+  seo_optimization: number;
+}
 export default function ComparePlans() {
 
   const { data, isLoading } = useGetPlansQuery(undefined);
@@ -28,7 +37,7 @@ export default function ComparePlans() {
   const plans: PlanType[] = useMemo(() => {
     if (!data?.data) return [];
 
-    return data.data.map((item: any) => ({
+    return data.data.map((item: ApiPlan) => ({
       id: item.id,
       name: item.type,
       price: item.per_video,
