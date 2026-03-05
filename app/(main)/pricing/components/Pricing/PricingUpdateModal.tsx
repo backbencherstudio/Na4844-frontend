@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUpdateSubPlanMutation } from "@/redux/features/payment/subscription";
-import { Plan, PlanUpdateModalProps } from "./subscription";
+import { Plan, PeriodType, PlanUpdateModalProps } from "./subscription";
 
 export default function PriceUpdateModal({
     plan,

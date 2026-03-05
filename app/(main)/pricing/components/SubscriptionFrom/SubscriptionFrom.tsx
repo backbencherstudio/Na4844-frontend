@@ -15,7 +15,8 @@ import { FormEvent, useMemo, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
 import { useCreatePaymentMutation } from "@/redux/features/payment/paymentApi";
-import { toast } from "sonner";
+import { useAppSelector } from "@/redux/hooks";
+import { toast } from 'sonner';
 
 type Plan = "CORE" | "GROWTH" | "PLUS";
 type Interval = "MONTHLY" | "SEMIANNUAL" | "ANNUAL";
@@ -35,6 +36,8 @@ const router = useRouter();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
    const [createPayment, { isLoading }] = useCreatePaymentMutation();
+    const { token } = useAppSelector((state) => state.auth);
+   
 
   const fetchUrl = useMemo(
     () => `${process.env.NEXT_PUBLIC_BACKEND_BASE}/payment/stripe/subscription`,
@@ -43,6 +46,7 @@ const router = useRouter();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!token) return router.push("/signup");
 
     if (!stripe || !elements) {
       setMessage("Stripe loading...");

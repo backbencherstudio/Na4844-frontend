@@ -52,6 +52,7 @@ export default function PricingCard() {
         setIsOpen(true);
     };
 
+    
     const handleSavePlan = (updatedPlan: Plan, period: PeriodType, newPrice: number) => {
         setPlans((prev) =>
             prev.map((p) =>
@@ -69,32 +70,48 @@ export default function PricingCard() {
     };
 
     const handleSubscribe = async (planTitle: PlanType) => {
-        if (!token) return router.push("/signup");
+      
+        if (!token) {
+            return router.push("/signup?redirect=/pricing");
+        }
 
+        
         if (!isTrial && !isSubscribed) {
             try {
-                const res = await createTrial({
+                await createTrial({
                     plan: planTitle,
                     interval: planType.toUpperCase(),
                 }).unwrap();
 
-                toast.success(res.message || "Trial started successfully!");
-                dispatch(setCredentials({ isTrial: true, isSubscribed: false }));
+                toast.success("Trial started successfully!");
+
+                dispatch(setCredentials({
+                    isTrial: true,
+                    isSubscribed: false,
+                }));
+
                 return;
-            } catch (error: any) {
-                toast.error(error?.data?.message || "Failed to start trial");
+            } catch (error) {
+                console.log("Trial failed:", error);
                 return;
             }
         }
 
-        if (isTrial && !isSubscribed) return router.push("/subscribe");
-        if (isTrial && isSubscribed) return router.push("https://flow-edit-one.vercel.app/dashboard");
+     
+        if (isTrial && !isSubscribed) {
+            return router.push("/subscribe");
+        }
+
+       
+        if (isSubscribed) {
+            return router.push("https://flow-edit-one.vercel.app/dashboard");
+        }
     };
 
     const getButtonText = (planTitle: PlanType) => {
-        if (!isTrial && !isSubscribed) return "Start 14 Days Free Trial";
-        if (isTrial && !isSubscribed) return "Subscribe Now";
-        if (isTrial && isSubscribed) return "Go to Dashboard";
+        if (!isTrial && !isSubscribed) return `Start 14 Days Free Trial`;
+        if (isTrial && !isSubscribed) return `Subscribe Now `;
+        if (isSubscribed) return "Go to Dashboard";
         return "Select Plan";
     };
 
@@ -148,7 +165,7 @@ export default function PricingCard() {
                         <div
                             key={plan.id}
                             className={`relative overflow-hidden px-8 py-8 border rounded-2xl bg-white/50 backdrop-blur-sm flex flex-col gap-6 transition-all duration-300 hover:scale-105 ${plan.glow
-                                    ? "shadow-2xl ring-2 ring-blue-400 border-blue-200"
+                                    ? "shadow-2xl"
                                     : "shadow-lg hover:shadow-xl border-gray-200"
                                 }`}
                         >
@@ -170,7 +187,7 @@ export default function PricingCard() {
 
                             {/* Discount Badge */}
                             {showDiscount && (
-                                <div className="absolute top-0 left-35 text-center flex justify-center items-center  text-red-500 text-sm font-bold px-4 py-1.5 rounded-r-full z-20">
+                                <div className="absolute top- left-1/2 transform top-4 -translate-x-1/2 -translate-y-1/2 font-bold text-lg text-red-500 px-3 py-1 rounded">
                                     <p className="text-center">SAVE {discountPercent}%</p>
                                 </div>
                             )}

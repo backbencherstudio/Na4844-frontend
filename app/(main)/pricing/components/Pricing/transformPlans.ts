@@ -1,12 +1,18 @@
 // utils/transformPlans.ts
-import { BackendResponse, Plan, PlanType, PeriodType } from "@/types/subscription";
+
+import { BackendResponse, Plan, PlanType, PeriodType } from "./subscription";
 
 // Static UI data for features and descriptions
-export const staticPlanData: Omit<Plan, 'prices'>[] = [
+export const staticPlanData: Plan[] = [
   {
     id: 1,
     title: "CORE",
     desc: {
+      monthly: 409,
+      semiannual: 627,
+      annual: 865,
+    },
+    prices: {
       monthly: 409,
       semiannual: 627,
       annual: 865,
@@ -31,6 +37,11 @@ export const staticPlanData: Omit<Plan, 'prices'>[] = [
       semiannual: 765,
       annual: 978,
     },
+    prices: {
+      monthly: 582,
+      semiannual: 765,
+      annual: 978,
+    },
     glow: true,
     isPopular: true,
     features: Array(9).fill({ text: "Full premium access", type: "check" }),
@@ -43,10 +54,14 @@ export const staticPlanData: Omit<Plan, 'prices'>[] = [
       semiannual: 956,
       annual: 980,
     },
+    prices: {
+      monthly: 820,
+      semiannual: 956,
+      annual: 980,
+    },
     features: Array(9).fill({ text: "Advanced premium access", type: "check" }),
   },
 ];
-
 export const transformBackendToPlans = (backendData: BackendResponse): Plan[] => {
   if (!backendData?.data || backendData.data.length === 0) {
     return staticPlanData;
