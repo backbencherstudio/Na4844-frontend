@@ -21,9 +21,11 @@ export default function SignupPage() {
   const {
     register,
     handleSubmit,
-     reset,
-    formState: { errors },
-  } = useForm<SignupFormData>();
+    reset,
+    formState: { errors, isValid },
+  } = useForm<SignupFormData>({
+    mode: "onChange", // validates on every keystroke
+  });
 
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -161,7 +163,7 @@ export default function SignupPage() {
                 className='w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
                 {...register("password", {
                   required: "Password is required",
-                  minLength: { value: 6, message: "Minimum 6 characters" },
+                  minLength: { value: 8, message: "Minimum 8 characters" },
                 })}
               />
 
@@ -186,7 +188,7 @@ export default function SignupPage() {
           {/* Submit */}
           <button
             type="submit"
-            disabled={isLoading || !!errors.password || !!errors.email || !!errors.name}
+            disabled={isLoading || !isValid} 
             className="w-full rounded-xl bg-blue-600 text-white py-3 font-semibold hover:bg-blue-700 transition disabled:opacity-60"
           >
             {isLoading ? "Creating..." : "Sign Up"}
