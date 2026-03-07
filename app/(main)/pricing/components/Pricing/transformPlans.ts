@@ -1,22 +1,21 @@
 // utils/transformPlans.ts
-
 import { BackendResponse, Plan, PlanType, PeriodType } from "./subscription";
+
+// Map backend period to human-readable label
+export const periodLabelMap: Record<PeriodType, string> = {
+  monthly: "Month",
+  semiannual: "Six Months",
+  annual: "Year",
+};
 
 // Static UI data for features and descriptions
 export const staticPlanData: Plan[] = [
   {
     id: 1,
     title: "CORE",
-    desc: {
-      monthly: 409,
-      semiannual: 627,
-      annual: 865,
-    },
-    prices: {
-      monthly: 409,
-      semiannual: 627,
-      annual: 865,
-    },
+    desc: { monthly: 409, semiannual: 627, annual: 865 },
+    package: "Month",
+    prices: { monthly: 409, semiannual: 627, annual: 865 },
     features: [
       { text: "Parturient sed nunc neque", type: "minus" },
       { text: "Vel enim ultrices et ornare", type: "minus" },
@@ -32,55 +31,56 @@ export const staticPlanData: Plan[] = [
   {
     id: 2,
     title: "GROWTH",
-    desc: {
-      monthly: 582,
-      semiannual: 765,
-      annual: 978,
-    },
-    prices: {
-      monthly: 582,
-      semiannual: 765,
-      annual: 978,
-    },
+    desc: { monthly: 582, semiannual: 765, annual: 978 },
+    package: "Six Months",
+    prices: { monthly: 582, semiannual: 765, annual: 978 },
     glow: true,
     isPopular: true,
-    features: Array(9).fill({ text: "Full premium access", type: "check" }),
+    features: [
+      { text: "Ipsum eu mauris in ut massa", type: "check" },
+      { text: "At id vel sit aliquet venenatis", type: "check" },
+      { text: "At id vel sit aliquet venenatis", type: "check" },
+      { text: "Aliquet amet donec pulvinar", type: "check" },
+      { text: "Justo et in interdum a nulla", type: "check" },
+      { text: "Sit molestie libero in dui", type: "check" },
+      { text: "Ultricies gravida tempus orci", type: "check" },
+      { text: "Eu eget cras nunc facilisis", type: "check" },
+      { text: "Gravida auctor sed donec", type: "check" },
+    ],
   },
   {
     id: 3,
     title: "PLUS",
-    desc: {
-      monthly: 820,
-      semiannual: 956,
-      annual: 980,
-    },
-    prices: {
-      monthly: 820,
-      semiannual: 956,
-      annual: 980,
-    },
-    features: Array(9).fill({ text: "Advanced premium access", type: "check" }),
+    desc: { monthly: 820, semiannual: 956, annual: 980 },
+    package: "Year",
+    prices: { monthly: 820, semiannual: 956, annual: 980 },
+    features: [
+      { text: "Morbi diam eros scelerisque", type: "check" },
+      { text: "Urna facilisis mattis mi nulla", type: "check" },
+      { text: "Volutpat odio nunc non vel", type: "check" },
+      { text: "Lorem at in aliquam tellus", type: "check" },
+      { text: "Molestie a vel in sed enim", type: "check" },
+      { text: "Interdum lectus lorem ipsum", type: "check" },
+      { text: "Nunc quis aliquet ornare", type: "check" },
+      { text: "Ut bibendum mauris nisl", type: "check" },
+      { text: "Dapibus at eget diam vitae", type: "check" },
+    ],
   },
 ];
-export const transformBackendToPlans = (backendData: BackendResponse): Plan[] => {
-  if (!backendData?.data || backendData.data.length === 0) {
-    return staticPlanData;
-  }
 
-  // Group prices by plan
+// Transform backend response to Plan[]
+export const transformBackendToPlans = (backendData: BackendResponse): Plan[] => {
+  if (!backendData?.data || backendData.data.length === 0) return staticPlanData;
+
   const groupedPrices = backendData.data.reduce((acc, item) => {
-    const planName = item.plan;
+    const planName = item.plan.toUpperCase() as PlanType;
     const interval = item.interval.toLowerCase() as PeriodType;
-    
-    if (!acc[planName]) {
-      acc[planName] = {} as Record<PeriodType, number>;
-    }
-    
+
+    if (!acc[planName]) acc[planName] = {} as Record<PeriodType, number>;
     acc[planName][interval] = Number(item.price);
     return acc;
   }, {} as Record<PlanType, Record<PeriodType, number>>);
 
-  // Merge with static data
   return staticPlanData.map((staticPlan) => ({
     ...staticPlan,
     prices: {
@@ -91,19 +91,19 @@ export const transformBackendToPlans = (backendData: BackendResponse): Plan[] =>
   }));
 };
 
-// For testing/development without API
+// Mock data
 export const mockBackendResponse: BackendResponse = {
   success: true,
   message: "Subscription plans retrieved successfully",
   data: [
-    { id: "cmmbtwsfq0002027o2xr2gval", created_at: "2026-03-04T09:23:08.150Z", updated_at: "2026-03-04T09:23:08.150Z", deleted_at: null, plan: "PLUS", interval: "ANNUAL", price: "5500" },
-    { id: "cmmbtwf050001027ottnainjx", created_at: "2026-03-04T09:22:50.742Z", updated_at: "2026-03-04T09:22:50.742Z", deleted_at: null, plan: "PLUS", interval: "SEMIANNUAL", price: "4500" },
-    { id: "cmmbtw0w60000027of2wk98fk", created_at: "2026-03-04T09:22:32.453Z", updated_at: "2026-03-04T09:22:32.453Z", deleted_at: null, plan: "PLUS", interval: "MONTHLY", price: "2200" },
-    { id: "cmmbtt4zg0004029smqsr2di9", created_at: "2026-03-04T09:20:17.763Z", updated_at: "2026-03-04T09:20:17.763Z", deleted_at: null, plan: "GROWTH", interval: "ANNUAL", price: "2500" },
-    { id: "cmmbtrzsc0003029smq3ux5iz", created_at: "2026-03-04T09:19:24.396Z", updated_at: "2026-03-04T09:19:24.396Z", deleted_at: null, plan: "GROWTH", interval: "SEMIANNUAL", price: "2500" },
-    { id: "cmmbtrl650002029s9rpfkipn", created_at: "2026-03-04T09:19:05.453Z", updated_at: "2026-03-04T09:19:05.453Z", deleted_at: null, plan: "GROWTH", interval: "MONTHLY", price: "1500" },
-    { id: "cmmbtr1u20001029sub25wvcz", created_at: "2026-03-04T09:18:40.395Z", updated_at: "2026-03-04T09:18:40.395Z", deleted_at: null, plan: "CORE", interval: "ANNUAL", price: "3000" },
-    { id: "cmmbtqsos0000029s4vljcqeg", created_at: "2026-03-04T09:18:28.540Z", updated_at: "2026-03-04T09:18:28.540Z", deleted_at: null, plan: "CORE", interval: "SEMIANNUAL", price: "434" },
-    { id: "cmmbtmajc000002nk85hsm6hd", created_at: "2026-03-04T09:14:58.371Z", updated_at: "2026-03-04T09:14:58.371Z", deleted_at: null, plan: "CORE", interval: "MONTHLY", price: "2000" }
-  ]
+    { id: "1", plan: "PLUS", interval: "ANNUAL", price: "5500", created_at: "", updated_at: "", deleted_at: null },
+    { id: "2", plan: "PLUS", interval: "SEMIANNUAL", price: "4500", created_at: "", updated_at: "", deleted_at: null },
+    { id: "3", plan: "PLUS", interval: "MONTHLY", price: "2200", created_at: "", updated_at: "", deleted_at: null },
+    { id: "4", plan: "GROWTH", interval: "ANNUAL", price: "2500", created_at: "", updated_at: "", deleted_at: null },
+    { id: "5", plan: "GROWTH", interval: "SEMIANNUAL", price: "2500", created_at: "", updated_at: "", deleted_at: null },
+    { id: "6", plan: "GROWTH", interval: "MONTHLY", price: "1500", created_at: "", updated_at: "", deleted_at: null },
+    { id: "7", plan: "CORE", interval: "ANNUAL", price: "3000", created_at: "", updated_at: "", deleted_at: null },
+    { id: "8", plan: "CORE", interval: "SEMIANNUAL", price: "434", created_at: "", updated_at: "", deleted_at: null },
+    { id: "9", plan: "CORE", interval: "MONTHLY", price: "2000", created_at: "", updated_at: "", deleted_at: null },
+  ],
 };

@@ -1,4 +1,3 @@
-// components/PricingCard.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,111 +5,83 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { toast } from "sonner";
+
 import DiamondIcon from "@/components/shared/DiamondCheckIcon";
+import PriceUpdateModal from "./PricingUpdateModal";
+
 import { useCreateTrileMutation } from "@/redux/features/payment/paymentApi";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { setCredentials } from "@/redux/features/auth/authSlice";
-
 import { useGetSubcriptionQuery } from "@/redux/features/payment/subscription";
-import { transformBackendToPlans, mockBackendResponse } from "./transformPlans";
+
 import { Plan, PeriodType, PlanType } from "./subscription";
-import PriceUpdateModal from "./PricingUpdateModal";
+import { transformBackendToPlans, mockBackendResponse, periodLabelMap } from "./transformPlans";
 
 export default function PricingCard() {
     const { data: apiData, isLoading: isLoadingPlans, error } = useGetSubcriptionQuery({});
     const [planType, setPlanType] = useState<PeriodType>("monthly");
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
     const [plans, setPlans] = useState<Plan[]>([]);
+    const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     const role = useAppSelector((state) => state.auth.role);
-    const isAdmin = role === "ADMIN";
     const { token, isTrial, isSubscribed } = useAppSelector((state) => state.auth);
+    const isAdmin = role === "ADMIN";
     const dispatch = useAppDispatch();
-    const [createTrial, { isLoading: isTrialLoading }] = useCreateTrileMutation();
     const router = useRouter();
+    const [createTrial, { isLoading: isTrialLoading }] = useCreateTrileMutation();
 
-    // Transform backend data when it arrives
+    // Transform backend data
     useEffect(() => {
         if (apiData) {
-            const transformed = transformBackendToPlans(apiData);
-            setPlans(transformed);
+            setTimeout(() => {
+                setPlans(transformBackendToPlans(apiData));
+            }, 0);
         } else if (error) {
             console.error("Failed to fetch plans:", error);
-            // Fallback to mock data if API fails
-            setPlans(transformBackendToPlans(mockBackendResponse));
+            setTimeout(() => {
+                setPlans(transformBackendToPlans(mockBackendResponse));
+            }, 0);
         }
     }, [apiData, error]);
-
-    // For development/testing without API
-    // useEffect(() => {
-    //   setPlans(transformBackendToPlans(mockBackendResponse));
-    // }, []);
 
     const handleEditClick = (plan: Plan) => {
         setSelectedPlan(plan);
         setIsOpen(true);
     };
 
-    
     const handleSavePlan = (updatedPlan: Plan, period: PeriodType, newPrice: number) => {
         setPlans((prev) =>
             prev.map((p) =>
                 p.id === updatedPlan.id
-                    ? {
-                        ...p,
-                        prices: {
-                            ...p.prices,
-                            [period]: newPrice,
-                        },
-                    }
+                    ? { ...p, prices: { ...p.prices, [period]: newPrice } }
                     : p
             )
         );
+
+        // TODO: Call API to persist changes
     };
 
     const handleSubscribe = async (planTitle: PlanType) => {
-      
-        if (!token) {
-            return router.push("/signup?redirect=/pricing");
-        }
+        if (!token) return router.push("/signup?redirect=/pricing");
 
-        
-        if (!isTrial && !isSubscribed) {
-            try {
-                await createTrial({
-                    plan: planTitle,
-                    interval: planType.toUpperCase(),
-                }).unwrap();
-
+        try {
+            if (!isTrial && !isSubscribed) {
+                await createTrial({ plan: planTitle, interval: planType.toUpperCase() }).unwrap();
                 toast.success("Trial started successfully!");
-
-                dispatch(setCredentials({
-                    isTrial: true,
-                    isSubscribed: false,
-                }));
-
-                return;
-            } catch (error) {
-                console.log("Trial failed:", error);
+                dispatch(setCredentials({ isTrial: true, isSubscribed: false }));
                 return;
             }
-        }
-
-     
-        if (isTrial && !isSubscribed) {
-            return router.push("/subscribe");
-        }
-
-       
-        if (isSubscribed) {
-            return router.push("https://flow-edit-one.vercel.app/dashboard");
+            if (isTrial && !isSubscribed) return router.push("/subscribe");
+            if (isSubscribed) return router.push("/dashboard");
+        } catch (err) {
+            console.error("Trial subscription failed:", err);
         }
     };
 
     const getButtonText = (planTitle: PlanType) => {
-        if (!isTrial && !isSubscribed) return `Start 14 Days Free Trial`;
-        if (isTrial && !isSubscribed) return `Subscribe Now `;
+        if (!isTrial && !isSubscribed) return "Start 14 Days Free Trial";
+        if (isTrial && !isSubscribed) return "Subscribe Now";
         if (isSubscribed) return "Go to Dashboard";
         return "Select Plan";
     };
@@ -122,32 +93,30 @@ export default function PricingCard() {
         return 0;
     };
 
-    if (isLoadingPlans) {
-        return (
-            <div className="flex justify-center items-center min-h-[500px]">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading subscription plans...</p>
-                </div>
+    if (isLoadingPlans) return (
+        <div className="flex justify-center items-center min-h-[500px]">
+            <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Loading subscription plans...</p>
             </div>
-        );
-    }
+        </div>
+    );
 
     return (
         <div className="relative py-20 w-full">
-            {/* Plan Type Toggle */}
+            {/* Period Toggle */}
             <div className="flex justify-center mb-16">
                 <div className="inline-flex bg-[#a1b8f4] gap-2 rounded-full p-1.5">
                     {(["monthly", "semiannual", "annual"] as PeriodType[]).map((type) => (
                         <button
                             key={type}
                             onClick={() => setPlanType(type)}
-                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all capitalize ${planType === type
+                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${planType === type
                                     ? "bg-white text-gray-900 shadow-lg"
                                     : "text-white/90 hover:text-white hover:bg-white/10"
                                 }`}
                         >
-                            {type}
+                            {type}  {/* <-- stays same */}
                         </button>
                     ))}
                 </div>
@@ -164,57 +133,45 @@ export default function PricingCard() {
                     return (
                         <div
                             key={plan.id}
-                            className={`relative overflow-hidden px-8 py-8 border rounded-2xl bg-white/50 backdrop-blur-sm flex flex-col gap-6 transition-all duration-300 hover:scale-105 ${plan.glow
-                                    ? "shadow-2xl"
-                                    : "shadow-lg hover:shadow-xl border-gray-200"
+                            className={`relative overflow-hidden px-8 py-8 border rounded-2xl bg-white/50 backdrop-blur-sm flex flex-col gap-6 transition-all duration-300 hover:scale-105 ${plan.glow ? "shadow-2xl" : "shadow-lg hover:shadow-xl border-gray-200"
                                 }`}
                         >
-                            {/* Background Glow */}
-                            <Image
-                                src="/images/price-page/card-glow.png"
-                                alt="card glow"
-                                width={350}
-                                height={300}
-                                className="absolute -top-5 -right-7 opacity-30 z-0"
-                            />
+                            <Image src="/images/price-page/card-glow.png" alt="card glow" width={350} height={300} className="absolute -top-5 -right-7 opacity-30 z-0" />
 
-                            {/* Popular Badge */}
                             {plan.isPopular && (
                                 <div className="absolute rotate-45 translate-x-12 -right-10 text-center bg-blue-500 text-white text-xs font-semibold w-[280px] py-1 shadow-lg z-20">
                                     MOST POPULAR
                                 </div>
                             )}
 
-                            {/* Discount Badge */}
                             {showDiscount && (
-                                <div className="absolute top- left-1/2 transform top-4 -translate-x-1/2 -translate-y-1/2 font-bold text-lg text-red-500 px-3 py-1 rounded">
+                                <div className="absolute top-4 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-lg text-red-500 px-3 py-1 rounded">
                                     <p className="text-center">SAVE {discountPercent}%</p>
                                 </div>
                             )}
 
                             <div className="relative z-10 text-center">
-                                {/* Admin Edit Button */}
                                 {isAdmin && (
                                     <button
                                         onClick={() => handleEditClick(plan)}
-                                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm font-medium mb-6 transition-colors shadow-md"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm font-medium mb-1 transition-colors shadow-md"
                                     >
-                                     Edit Price
+                                        Edit Price
                                     </button>
                                 )}
 
-                                <h2 className="text-2xl text-gray-800 font-bold mb-4">{plan.title}</h2>
+                                <h2 className="text-2xl text-gray-800 font-bold ">{plan.title}</h2>
 
                                 <div className="flex justify-center items-start gap-1 mt-2">
                                     <BsCurrencyDollar className="text-3xl mt-2 text-gray-600" />
                                     <div>
                                         <p className="text-5xl font-extrabold text-gray-900">{price}</p>
-                                        <sup className="text-sm text-gray-500 capitalize">per video</sup>
+                                        <sup className="text-sm text-gray-500 capitalize flex mt-2  ">per video</sup>
                                     </div>
                                 </div>
 
-                                <p className="text-sm text-gray-600 mt-2 bg-gray-50 py-2 px-4 rounded-full inline-block">
-                                    ${desc} <span className="capitalize">per month</span>
+                                <p className="text-sm text-gray-600  rounded-full  items-center mx-auto ">
+                                    ${desc} <span className="capitalize">{periodLabelMap[planType]}</span>
                                 </p>
 
                                 <ul className="space-y-4 mt-8 text-left">
@@ -236,8 +193,7 @@ export default function PricingCard() {
                                 >
                                     {isTrialLoading ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <span className="animate-spin">⚪</span>
-                                            Processing...
+                                            <span className="animate-spin">⚪</span> Processing...
                                         </span>
                                     ) : (
                                         getButtonText(plan.title)
