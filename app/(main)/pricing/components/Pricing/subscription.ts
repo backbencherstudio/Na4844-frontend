@@ -28,6 +28,7 @@ export interface Plan {
   features: { text: string; type: FeatureType }[];
   glow?: boolean;
   isPopular?: boolean;
+  package?: string;
 }
 
 export interface PlanUpdateModalProps {
