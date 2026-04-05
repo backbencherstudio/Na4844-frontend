@@ -21,7 +21,7 @@ const PricingPage = () => {
 
 export default PricingPage;
 
-// /** @format */
+
 
 // "use client";
 

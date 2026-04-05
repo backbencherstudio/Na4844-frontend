@@ -56,7 +56,7 @@ export default function ComparePlans() {
   }
 
   return (
-    <section className="relative overflow-hidden py-10">
+    <section className="relative overflow-hidden pb-10">
       <div
         className='pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[700px] z-0'
         style={{

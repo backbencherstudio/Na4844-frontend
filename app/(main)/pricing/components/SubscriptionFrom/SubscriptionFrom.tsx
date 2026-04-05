@@ -40,7 +40,7 @@ const router = useRouter();
    
 
   const fetchUrl = useMemo(
-    () => `${process.env.NEXT_PUBLIC_BACKEND_BASE}/payment/stripe/subscription`,
+    () => `${process.env.NEXT_PUBLIC_API_URL}/payment/stripe/subscription`,
     [],
   );
 
@@ -211,21 +211,4 @@ const router = useRouter();
   );
 }
 
-// interface SubscriptionFormProps {
-//   price: number;
-//   plan: string | null;
-// }
 
-// const SubscriptionForm = ({ price, plan }: SubscriptionFormProps) => {
-//   return (
-//     <div>
-//       <h2>Checkout</h2>
-//       <p>Plan: {plan}</p>
-//       <p>Amount: ${price}</p>
-
-//       {/* Stripe CardElement / PaymentElement here */}
-//     </div>
-//   );
-// };
-
-// export default SubscriptionForm;
