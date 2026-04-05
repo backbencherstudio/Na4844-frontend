@@ -122,9 +122,9 @@ const router = useRouter();
   };
 
   return (
-    <div className='w-full mb-10'>
-      <div className='min-h-screen bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200 flex items-center justify-center px-4'>
-        <div className='w-full max-w-xl bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-6'>
+   <div className="w-full mb-10 ">
+      <div className='min-h-screen bg-gradient-to-b from-blue-500 via-indigo-400 to-blue-200 flex items-center justify-center  px-4 overflow-y-auto'>
+        <div className='w-full max-w-xl bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-6 min-h-[360px] overflow-y-auto mb-4 mt-20'>
           <h2 className='text-2xl font-bold text-gray-900'>
             Subscription Payment
           </h2>
@@ -138,7 +138,7 @@ const router = useRouter();
             </div>
           )}
 
-          <form onSubmit={onSubmit} className='mt-6 space-y-4'>
+          <form onSubmit={onSubmit} className='mt-6 space-y-4 '>
             {/* Plan */}
             <div className=''>
               <label className='text-sm font-semibold text-gray-700'>

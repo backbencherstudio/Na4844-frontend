@@ -69,17 +69,23 @@ export const staticPlanData: Plan[] = [
 ];
 
 // Transform backend response to Plan[]
-export const transformBackendToPlans = (backendData: BackendResponse): Plan[] => {
-  if (!backendData?.data || backendData.data.length === 0) return staticPlanData;
+export const transformBackendToPlans = (
+  backendData: BackendResponse,
+): Plan[] => {
+  if (!backendData?.data || backendData.data.length === 0)
+    return staticPlanData;
 
-  const groupedPrices = backendData.data.reduce((acc, item) => {
-    const planName = item.plan.toUpperCase() as PlanType;
-    const interval = item.interval.toLowerCase() as PeriodType;
+  const groupedPrices = backendData.data.reduce(
+    (acc, item) => {
+      const planName = item.plan.toUpperCase() as PlanType;
+      const interval = item.interval.toLowerCase() as PeriodType;
 
-    if (!acc[planName]) acc[planName] = {} as Record<PeriodType, number>;
-    acc[planName][interval] = Number(item.price);
-    return acc;
-  }, {} as Record<PlanType, Record<PeriodType, number>>);
+      if (!acc[planName]) acc[planName] = {} as Record<PeriodType, number>;
+      acc[planName][interval] = Number(item.price);
+      return acc;
+    },
+    {} as Record<PlanType, Record<PeriodType, number>>,
+  );
 
   return staticPlanData.map((staticPlan) => ({
     ...staticPlan,
@@ -96,14 +102,86 @@ export const mockBackendResponse: BackendResponse = {
   success: true,
   message: "Subscription plans retrieved successfully",
   data: [
-    { id: "1", plan: "PLUS", interval: "ANNUAL", price: "5500", created_at: "", updated_at: "", deleted_at: null },
-    { id: "2", plan: "PLUS", interval: "SEMIANNUAL", price: "4500", created_at: "", updated_at: "", deleted_at: null },
-    { id: "3", plan: "PLUS", interval: "MONTHLY", price: "2200", created_at: "", updated_at: "", deleted_at: null },
-    { id: "4", plan: "GROWTH", interval: "ANNUAL", price: "2500", created_at: "", updated_at: "", deleted_at: null },
-    { id: "5", plan: "GROWTH", interval: "SEMIANNUAL", price: "2500", created_at: "", updated_at: "", deleted_at: null },
-    { id: "6", plan: "GROWTH", interval: "MONTHLY", price: "1500", created_at: "", updated_at: "", deleted_at: null },
-    { id: "7", plan: "CORE", interval: "ANNUAL", price: "3000", created_at: "", updated_at: "", deleted_at: null },
-    { id: "8", plan: "CORE", interval: "SEMIANNUAL", price: "434", created_at: "", updated_at: "", deleted_at: null },
-    { id: "9", plan: "CORE", interval: "MONTHLY", price: "2000", created_at: "", updated_at: "", deleted_at: null },
+    {
+      id: "1",
+      plan: "PLUS",
+      interval: "ANNUAL",
+      price: "5500",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "2",
+      plan: "PLUS",
+      interval: "SEMIANNUAL",
+      price: "4500",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "3",
+      plan: "PLUS",
+      interval: "MONTHLY",
+      price: "2200",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "4",
+      plan: "GROWTH",
+      interval: "ANNUAL",
+      price: "2500",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "5",
+      plan: "GROWTH",
+      interval: "SEMIANNUAL",
+      price: "2500",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "6",
+      plan: "GROWTH",
+      interval: "MONTHLY",
+      price: "1500",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "7",
+      plan: "CORE",
+      interval: "ANNUAL",
+      price: "3000",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "8",
+      plan: "CORE",
+      interval: "SEMIANNUAL",
+      price: "434",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
+    {
+      id: "9",
+      plan: "CORE",
+      interval: "MONTHLY",
+      price: "2000",
+      created_at: "",
+      updated_at: "",
+      deleted_at: null,
+    },
   ],
 };

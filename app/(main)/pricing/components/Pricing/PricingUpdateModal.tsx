@@ -1,4 +1,4 @@
-
+// components/PlanUpdateModal.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -38,6 +38,8 @@ export default function PriceUpdateModal({
 
         setIsSaving(true);
         try {
+            // Find the correct subscription ID from backend
+            // This is a simplified version - you'll need to implement proper ID lookup
             const subscriptionId = getSubscriptionId(plan.title, currentPeriod);
 
             if (!subscriptionId) {
@@ -63,7 +65,10 @@ export default function PriceUpdateModal({
         }
     };
 
+    // Helper function to get subscription ID (implement based on your data structure)
     const getSubscriptionId = (planTitle: string, period: PeriodType): string | null => {
+        // This should be implemented to return the correct ID from your data
+        // For now, return a mock ID
         const mockIds: Record<string, string> = {
             "CORE_monthly": "cmmbtmajc000002nk85hsm6hd",
             "CORE_semiannual": "cmmbtqsos0000029s4vljcqeg",
