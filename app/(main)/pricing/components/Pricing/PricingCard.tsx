@@ -16,6 +16,7 @@ import { useGetSubcriptionQuery } from "@/redux/features/payment/subscription";
 
 import { Plan, PeriodType, PlanType } from "./subscription";
 import { transformBackendToPlans, mockBackendResponse, periodLabelMap } from "./transformPlans";
+import { Plane } from "lucide-react";
 
 export default function PricingCard() {
     const { data: apiData, isLoading: isLoadingPlans, error } = useGetSubcriptionQuery({});
@@ -61,6 +62,8 @@ export default function PricingCard() {
 
         // TODO: Call API to persist changes
     };
+        console.log(handleSavePlan,"0-0-0-09-90")
+
 
     const handleSubscribe = async (planTitle: PlanType) => {
         if (!token) return router.push("/signup?redirect=/pricing");
@@ -73,7 +76,7 @@ export default function PricingCard() {
                 return;
             }
             if (isTrial && !isSubscribed) return router.push("/subscribe");
-            if (isSubscribed) return router.push("/dashboard");
+            if (isSubscribed) return router.push("https://flow-edit-one.vercel.app/dashboard");
         } catch (err) {
             console.error("Trial subscription failed:", err);
         }
@@ -193,7 +196,7 @@ export default function PricingCard() {
                                 >
                                     {isTrialLoading ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <span className="animate-spin">⚪</span> Processing...
+                                            <span className="animate-spin"></span> Processing...
                                         </span>
                                     ) : (
                                         getButtonText(plan.title)
