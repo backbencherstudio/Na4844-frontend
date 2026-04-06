@@ -72,7 +72,7 @@ export default function PricingCard() {
                 dispatch(setCredentials({ isTrial: true, isSubscribed: false }));
                 return;
             }
-            if (isTrial && !isSubscribed) return router.push("/subscribe");
+            if (isTrial && !isSubscribed) return router.push("https://flow-edit-one.vercel.app/dashboard");
             if (isSubscribed) return router.push("/dashboard");
         } catch (err) {
             console.error("Trial subscription failed:", err);
